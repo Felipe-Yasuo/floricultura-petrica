@@ -118,3 +118,45 @@ h6 {
   font-family: var(--font-playfair), serif;
   letter-spacing: -0.02em;
 }
+
+/* Scroll-triggered animation */
+.animate-on-scroll {
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out;
+  filter: blur(12px);
+  transform: translateY(8px);
+}
+
+.animate-visible {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+  transform: translateY(0) !important;
+}
+
+/* Auto-scroll testimonials */
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 30s linear infinite;
+}
+
+.animate-scroll-up {
+  animation: scroll-up 30s linear infinite;
+}
