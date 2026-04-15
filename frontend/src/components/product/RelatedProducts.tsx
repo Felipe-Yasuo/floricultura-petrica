@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
-import { Product } from '@/constants/products'
 import { formatPrice } from '@/lib/utils'
+import { Product } from '@/types/product'
 
 interface RelatedProductsProps {
     products: Product[]
@@ -17,7 +17,6 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
 
     return (
         <section ref={sectionRef} className="mt-24 pt-24 border-t border-[var(--color-surface-container-high)]">
-            {/* Header */}
             <div className="animate-on-scroll opacity-0 flex items-end justify-between mb-10">
                 <div>
                     <h2 className="text-2xl lg:text-3xl leading-[1.1] mb-2">
@@ -36,7 +35,6 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                 </Link>
             </div>
 
-            {/* Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
                 {products.map((product, index) => (
                     <Link

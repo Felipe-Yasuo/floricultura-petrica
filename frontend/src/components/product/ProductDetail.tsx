@@ -2,10 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, Leaf } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, Leaf, Loader2 } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
-import { Product } from '@/constants/products'
+import { useAuth } from '@/contexts/AuthContext'
+import { useCart } from '@/contexts/CartContext'
 import { formatPrice } from '@/lib/utils'
+import { Product } from '@/types/product'
 
 interface ProductDetailProps {
     product: Product
@@ -13,8 +16,13 @@ interface ProductDetailProps {
 
 export default function ProductDetail({ product }: ProductDetailProps) {
     const sectionRef = useScrollAnimation()
+    const router = useRouter()
+    const { isAuthenticated } = useAuth()
+    const { addItem } = useCart()
     const [quantity, setQuantity] = useState(1)
     const [activeImage, setActiveImage] = useState(0)
+    const [adding, setAdding] = useState(false)
+    const [added, setAdded] = useState(false)
 
     const images = [product.banner, product.banner, product.banner, product.banner]
 
@@ -23,7 +31,26 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     }
 
     const increaseQuantity = () => {
-        setQuantity(quantity + 1)
+        if (quantity < product.stock) setQuantity(quantity + 1)
+    }
+
+    const handleAddToCart = async () => {
+        if (!isAuthenticated) {
+            router.push('/login')
+            return
+        }
+
+        setAdding(true)
+        try {
+            await addItem(product.id, quantity)
+            setAdded(true)
+            setQuantity(1)
+            setTimeout(() => setAdded(false), 2000)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setAdding(false)
+        }
     }
 
     return (
@@ -34,35 +61,28 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     Shop
                 </Link>
                 <span>/</span>
-                <span className="text-[var(--color-foreground-muted)]">{product.category}</span>
+                <span className="text-[var(--color-foreground-muted)]">{product.category.name}</span>
             </nav>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                 {/* Images */}
                 <div className="animate-on-scroll opacity-0">
-                    {/* Main Image */}
                     <div className="relative aspect-square rounded-3xl overflow-hidden bg-[var(--color-surface-container-low)] mb-4">
                         <img
                             src={images[activeImage]}
                             alt={product.name}
                             className="w-full h-full object-cover"
                         />
-                        {product.badge && (
-                            <span className="absolute top-4 left-4 px-4 py-1.5 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-xs tracking-[0.15em] uppercase">
-                                {product.badge}
-                            </span>
-                        )}
                     </div>
 
-                    {/* Thumbnails */}
                     <div className="flex gap-3">
                         {images.map((img, i) => (
                             <button
                                 key={i}
                                 onClick={() => setActiveImage(i)}
                                 className={`w-20 h-20 rounded-2xl overflow-hidden transition-all duration-300 ${activeImage === i
-                                        ? 'ring-2 ring-[var(--color-primary)] opacity-100'
-                                        : 'opacity-50 hover:opacity-80'
+                                    ? 'ring-2 ring-[var(--color-primary)] opacity-100'
+                                    : 'opacity-50 hover:opacity-80'
                                     }`}
                             >
                                 <img
@@ -77,7 +97,6 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
                 {/* Info */}
                 <div>
-                    {/* Name & Price */}
                     <h1
                         className="animate-on-scroll opacity-0 text-3xl lg:text-4xl leading-[1.1] mb-4"
                         style={{ transitionDelay: '0.1s' }}
@@ -91,14 +110,18 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                         <span className="text-2xl font-medium">{formatPrice(product.price)}</span>
                     </div>
 
-                    {/* Description */}
                     <p
-                        className="animate-on-scroll opacity-0 text-[var(--color-foreground-muted)] leading-relaxed mb-8"
+                        className="animate-on-scroll opacity-0 text-[var(--color-foreground-muted)] leading-relaxed mb-4"
                         style={{ transitionDelay: '0.2s' }}
                     >
-                        {product.description}. Nossas flores são colhidas ao amanhecer em nossa fazenda botânica,
-                        garantindo uma cor profunda e fragrância duradoura. Cada arranjo é finalizado com papel
-                        de seda artesanal e fita de veludo.
+                        {product.description}
+                    </p>
+
+                    <p
+                        className="animate-on-scroll opacity-0 text-xs text-[var(--color-foreground-subtle)] mb-8"
+                        style={{ transitionDelay: '0.22s' }}
+                    >
+                        {product.stock > 0 ? `${product.stock} em estoque` : 'Fora de estoque'}
                     </p>
 
                     {/* Care Tips */}
@@ -125,7 +148,6 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                         className="animate-on-scroll opacity-0 flex flex-col sm:flex-row gap-4 mb-8"
                         style={{ transitionDelay: '0.3s' }}
                     >
-                        {/* Quantity Selector */}
                         <div className="flex items-center rounded-2xl bg-[var(--color-surface-container)] overflow-hidden">
                             <button
                                 onClick={decreaseQuantity}
@@ -144,10 +166,21 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                             </button>
                         </div>
 
-                        {/* Add to Cart Button */}
-                        <button className="flex-1 flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[var(--color-primary)] text-[var(--color-on-primary)] font-medium hover:scale-[1.01] transition-all duration-300">
-                            <ShoppingBag size={18} />
-                            Adicionar ao Carrinho
+                        <button
+                            onClick={handleAddToCart}
+                            disabled={adding || product.stock === 0}
+                            className="flex-1 flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-[var(--color-primary)] text-[var(--color-on-primary)] font-medium hover:scale-[1.01] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {adding ? (
+                                <Loader2 size={18} className="animate-spin" />
+                            ) : added ? (
+                                <>Adicionado ✓</>
+                            ) : (
+                                <>
+                                    <ShoppingBag size={18} />
+                                    Adicionar ao Carrinho
+                                </>
+                            )}
                         </button>
                     </div>
 

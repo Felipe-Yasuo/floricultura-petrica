@@ -1,21 +1,46 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
-import { mockProducts } from '@/constants/products'
+import { api } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
+import { Product } from '@/types/product'
 
-const categories = ['Todos', 'Flores Cortadas', 'Plantas em Vaso', 'Suculentas e Cactos']
+interface Category {
+    id: string
+    name: string
+    slug: string
+}
 
 export default function Products() {
+    const [products, setProducts] = useState<Product[]>([])
+    const [categories, setCategories] = useState<Category[]>([])
     const [activeCategory, setActiveCategory] = useState('Todos')
     const sectionRef = useScrollAnimation([activeCategory])
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const [productsRes, categoriesRes] = await Promise.all([
+                    api('/products'),
+                    api('/categories'),
+                ])
+                setProducts(productsRes.data || productsRes)
+                setCategories(categoriesRes)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        fetchData()
+    }, [])
+
     const filtered = activeCategory === 'Todos'
-        ? mockProducts
-        : mockProducts.filter((p) => p.category === activeCategory)
+        ? products
+        : products.filter((p) => p.category.name === activeCategory)
+
+    const categoryNames = ['Todos', ...categories.map((c) => c.name)]
 
     return (
         <section ref={sectionRef} className="py-24 px-6 lg:px-8 max-w-7xl mx-auto">
@@ -43,7 +68,7 @@ export default function Products() {
                 className="animate-on-scroll opacity-0 flex gap-2 mb-10 overflow-x-auto pb-2"
                 style={{ transitionDelay: '0.1s' }}
             >
-                {categories.map((cat) => (
+                {categoryNames.map((cat) => (
                     <button
                         key={cat}
                         onClick={() => setActiveCategory(cat)}
@@ -66,24 +91,16 @@ export default function Products() {
                         className="animate-on-scroll opacity-0 group"
                         style={{ transitionDelay: `${0.1 * (index + 1)}s` }}
                     >
-                        {/* Image */}
                         <div className="relative aspect-square rounded-3xl overflow-hidden mb-4 bg-[var(--color-surface-container-low)]">
                             <img
                                 src={product.banner}
                                 alt={product.name}
                                 className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                             />
-                            {product.badge && (
-                                <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[var(--color-accent)] text-white text-xs font-medium">
-                                    {product.badge}
-                                </span>
-                            )}
                         </div>
-
-                        {/* Info */}
                         <div>
                             <span className="text-xs tracking-[0.15em] uppercase text-[var(--color-foreground-subtle)]">
-                                {product.category}
+                                {product.category.name}
                             </span>
                             <h3 className="font-serif text-base mt-1 group-hover:text-[var(--color-primary)] transition-colors duration-300">
                                 {product.name}
