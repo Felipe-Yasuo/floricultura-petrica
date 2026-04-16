@@ -1,13 +1,19 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
-import { mockProducts } from '@/constants/products'
+import { api } from '@/lib/api'
+import { Product } from '@/types/product'
 import { formatPrice } from '@/lib/utils'
 
-const categories = ['Flores Cortadas', 'Plantas em Vaso', 'Suculentas e Cactos']
+interface Category {
+    id: string
+    name: string
+    slug: string
+}
+
 const sortOptions = [
     { label: 'Mais Recentes', value: 'newest' },
     { label: 'Menor Preço', value: 'price-asc' },
@@ -18,38 +24,61 @@ const sortOptions = [
 const ITEMS_PER_PAGE = 9
 
 export default function ShopContent() {
-    const [activeCategory, setActiveCategory] = useState<string | null>(null)
+    const [products, setProducts] = useState<Product[]>([])
+    const [categories, setCategories] = useState<Category[]>([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null)
     const [sortBy, setSortBy] = useState('newest')
     const [priceRange, setPriceRange] = useState(50000)
     const [currentPage, setCurrentPage] = useState(1)
 
-    const sectionRef = useScrollAnimation([activeCategory, sortBy, priceRange, currentPage])
+    const sectionRef = useScrollAnimation([activeCategoryId, sortBy, priceRange, currentPage, products])
 
-    const filtered = useMemo(() => {
-        let products = [...mockProducts]
+    useEffect(() => {
+        fetchData()
+    }, [])
 
-        if (activeCategory) {
-            products = products.filter((p) => p.category === activeCategory)
+    const fetchData = async () => {
+        try {
+            const [productsRes, categoriesRes] = await Promise.all([
+                api('/products'),
+                api('/categories'),
+            ])
+            setProducts(productsRes.data || productsRes)
+            setCategories(categoriesRes)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const filtered = (() => {
+        let result = [...products]
+
+        if (activeCategoryId) {
+            result = result.filter((p) => p.category_id === activeCategoryId)
         }
 
-        products = products.filter((p) => p.price <= priceRange)
+        result = result.filter((p) => p.price <= priceRange)
 
         switch (sortBy) {
             case 'price-asc':
-                products.sort((a, b) => a.price - b.price)
+                result.sort((a, b) => a.price - b.price)
                 break
             case 'price-desc':
-                products.sort((a, b) => b.price - a.price)
+                result.sort((a, b) => b.price - a.price)
                 break
             case 'name-asc':
-                products.sort((a, b) => a.name.localeCompare(b.name))
+                result.sort((a, b) => a.name.localeCompare(b.name))
                 break
             default:
+                result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
                 break
         }
 
-        return products
-    }, [activeCategory, sortBy, priceRange])
+        return result
+    })()
 
     const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
     const paginated = filtered.slice(
@@ -57,8 +86,8 @@ export default function ShopContent() {
         currentPage * ITEMS_PER_PAGE
     )
 
-    const handleCategoryChange = (cat: string | null) => {
-        setActiveCategory(cat)
+    const handleCategoryChange = (id: string | null) => {
+        setActiveCategoryId(id)
         setCurrentPage(1)
     }
 
@@ -67,33 +96,39 @@ export default function ShopContent() {
         setCurrentPage(1)
     }
 
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center py-32">
+                <Loader2 size={32} className="animate-spin text-[var(--color-primary)]" />
+            </div>
+        )
+    }
+
     return (
         <section ref={sectionRef} className="flex flex-col lg:flex-row gap-10">
             {/* Sidebar */}
             <aside className="lg:w-56 shrink-0">
-                {/* Categories */}
                 <div className="mb-8">
                     <h3 className="text-xs tracking-[0.2em] uppercase text-[var(--color-foreground-subtle)] mb-4">
                         Categorias
                     </h3>
                     <ul className="flex flex-col gap-2">
                         {categories.map((cat) => (
-                            <li key={cat}>
+                            <li key={cat.id}>
                                 <button
-                                    onClick={() => handleCategoryChange(activeCategory === cat ? null : cat)}
-                                    className={`text-sm transition-colors duration-300 ${activeCategory === cat
-                                            ? 'text-[var(--color-primary)] font-medium'
-                                            : 'text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground)]'
+                                    onClick={() => handleCategoryChange(activeCategoryId === cat.id ? null : cat.id)}
+                                    className={`text-sm transition-colors duration-300 ${activeCategoryId === cat.id
+                                        ? 'text-[var(--color-primary)] font-medium'
+                                        : 'text-[var(--color-foreground-muted)] hover:text-[var(--color-foreground)]'
                                         }`}
                                 >
-                                    {cat}
+                                    {cat.name}
                                 </button>
                             </li>
                         ))}
                     </ul>
                 </div>
 
-                {/* Sort */}
                 <div className="mb-8">
                     <h3 className="text-xs tracking-[0.2em] uppercase text-[var(--color-foreground-subtle)] mb-4">
                         Ordenar por
@@ -111,7 +146,6 @@ export default function ShopContent() {
                     </select>
                 </div>
 
-                {/* Price Range */}
                 <div>
                     <h3 className="text-xs tracking-[0.2em] uppercase text-[var(--color-foreground-subtle)] mb-4">
                         Faixa de Preço
@@ -137,7 +171,6 @@ export default function ShopContent() {
 
             {/* Products Grid */}
             <div className="flex-1">
-                {/* Grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                     {paginated.map((product, index) => (
                         <Link
@@ -152,15 +185,10 @@ export default function ShopContent() {
                                     alt={product.name}
                                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                                 />
-                                {product.badge && (
-                                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[var(--color-accent)] text-white text-xs font-medium">
-                                        {product.badge}
-                                    </span>
-                                )}
                             </div>
                             <div>
                                 <span className="text-xs tracking-[0.15em] uppercase text-[var(--color-foreground-subtle)]">
-                                    {product.category}
+                                    {product.category.name}
                                 </span>
                                 <h3 className="font-serif text-base mt-1 group-hover:text-[var(--color-primary)] transition-colors duration-300">
                                     {product.name}
@@ -176,7 +204,6 @@ export default function ShopContent() {
                     ))}
                 </div>
 
-                {/* Empty State */}
                 {paginated.length === 0 && (
                     <div className="text-center py-20">
                         <p className="text-[var(--color-foreground-muted)]">
@@ -185,7 +212,6 @@ export default function ShopContent() {
                     </div>
                 )}
 
-                {/* Pagination */}
                 {totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2 mt-16">
                         <button
@@ -202,8 +228,8 @@ export default function ShopContent() {
                                 key={i}
                                 onClick={() => setCurrentPage(i + 1)}
                                 className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 ${currentPage === i + 1
-                                        ? 'bg-[var(--color-primary)] text-[var(--color-on-primary)]'
-                                        : 'text-[var(--color-foreground-muted)] hover:bg-[var(--color-surface-container)]'
+                                    ? 'bg-[var(--color-primary)] text-[var(--color-on-primary)]'
+                                    : 'text-[var(--color-foreground-muted)] hover:bg-[var(--color-surface-container)]'
                                     }`}
                             >
                                 {i + 1}
