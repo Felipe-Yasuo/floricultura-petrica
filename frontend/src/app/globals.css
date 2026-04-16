@@ -109,6 +109,15 @@ body {
   line-height: 1.6;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+}
+
 h1,
 h2,
 h3,

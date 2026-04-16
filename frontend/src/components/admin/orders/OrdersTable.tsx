@@ -5,6 +5,7 @@ import { Search } from 'lucide-react'
 import { Order } from '@/types/order'
 import ConfirmModal from '@/components/ui/ConfirmModal'
 import OrderRow from './OrderRow'
+import OrderCard from './OrderCard'
 
 interface OrdersTableProps {
     orders: Order[]
@@ -88,7 +89,8 @@ export default function OrdersTable({ orders, onUpdateStatus }: OrdersTableProps
                     </select>
                 </div>
 
-                <div className="overflow-x-auto">
+                {/* Desktop: tabela */}
+                <div className="hidden md:block overflow-x-auto">
                     <table className="w-full">
                         <thead>
                             <tr className="border-b border-[var(--color-surface-container)]">
@@ -120,6 +122,25 @@ export default function OrdersTable({ orders, onUpdateStatus }: OrdersTableProps
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Mobile: cards */}
+                <div className="md:hidden">
+                    {filtered.length === 0 ? (
+                        <div className="px-5 py-12 text-center text-sm text-[var(--color-foreground-muted)]">
+                            Nenhum pedido encontrado.
+                        </div>
+                    ) : (
+                        filtered.map((order) => (
+                            <OrderCard
+                                key={order.id}
+                                order={order}
+                                isExpanded={expandedOrder === order.id}
+                                onToggleExpand={() => setExpandedOrder(expandedOrder === order.id ? null : order.id)}
+                                onStatusChange={(newStatus) => handleStatusChange(order.id, newStatus)}
+                            />
+                        ))
+                    )}
                 </div>
             </div>
 

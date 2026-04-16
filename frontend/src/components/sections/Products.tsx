@@ -18,7 +18,7 @@ export default function Products() {
     const [products, setProducts] = useState<Product[]>([])
     const [categories, setCategories] = useState<Category[]>([])
     const [activeCategory, setActiveCategory] = useState('Todos')
-    const sectionRef = useScrollAnimation([activeCategory])
+    const sectionRef = useScrollAnimation([activeCategory, products])
 
     useEffect(() => {
         async function fetchData() {
@@ -43,7 +43,7 @@ export default function Products() {
     const categoryNames = ['Todos', ...categories.map((c) => c.name)]
 
     return (
-        <section ref={sectionRef} className="py-24 px-6 lg:px-8 max-w-7xl mx-auto">
+        <section ref={sectionRef} className="py-24 px-4 lg:px-8 max-w-7xl mx-auto w-full">
             {/* Header */}
             <div className="animate-on-scroll opacity-0 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
                 <div>
@@ -65,7 +65,7 @@ export default function Products() {
 
             {/* Category Filter */}
             <div
-                className="animate-on-scroll opacity-0 flex gap-2 mb-10 overflow-x-auto pb-2"
+                className="animate-on-scroll opacity-0 flex gap-2 mb-10 overflow-x-auto pb-2 max-w-full"
                 style={{ transitionDelay: '0.1s' }}
             >
                 {categoryNames.map((cat) => (
@@ -83,8 +83,8 @@ export default function Products() {
             </div>
 
             {/* Product Grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                {filtered.map((product, index) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+                {filtered.slice(0, 4).map((product, index) => (
                     <Link
                         key={product.id}
                         href={`/shop/${product.slug}`}
