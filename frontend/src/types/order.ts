@@ -28,4 +28,9 @@ export interface Order {
         city: string
         state: string
     }
+    user?: {
+        id: string
+        name: string
+        email: string
+    }
 }
