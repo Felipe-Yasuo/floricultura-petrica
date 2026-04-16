@@ -3,6 +3,7 @@ import { CreateProductController } from '../controllers/product/CreateProductCon
 import { ListProductsController } from '../controllers/product/ListProductsController'
 import { ListAllProductsController } from '../controllers/product/ListAllProductsController'
 import { GetProductController } from '../controllers/product/GetProductController'
+import { GetProductBySlugController } from '../controllers/product/GetProductBySlugController'
 import { UpdateProductController } from '../controllers/product/UpdateProductController'
 import { DisableProductController } from '../controllers/product/DisableProductController'
 import { createProductSchema, updateProductSchema, productParamsSchema } from '../schemas/productSchema'
@@ -16,6 +17,7 @@ const router = Router()
 router.post('/', isAuthenticated, isAdmin, validateSchema(createProductSchema), asyncHandler(new CreateProductController().handle))
 router.get('/', asyncHandler(new ListProductsController().handle))
 router.get('/all', isAuthenticated, isAdmin, asyncHandler(new ListAllProductsController().handle))
+router.get('/slug/:slug', asyncHandler(new GetProductBySlugController().handle))
 router.get('/:id', validateSchema(productParamsSchema), asyncHandler(new GetProductController().handle))
 router.put('/:id', isAuthenticated, isAdmin, validateSchema(updateProductSchema), asyncHandler(new UpdateProductController().handle))
 router.patch('/:id/disable', isAuthenticated, isAdmin, validateSchema(productParamsSchema), asyncHandler(new DisableProductController().handle))

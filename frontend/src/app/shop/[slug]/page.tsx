@@ -17,15 +17,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
     let related: Product[] = []
 
     try {
-        const res = await api('/products')
-        const products: Product[] = res.data || res
-        product = products.find((p) => p.slug === slug) || null
+        product = await api(`/products/slug/${slug}`)
 
-        if (product) {
-            related = products
-                .filter((p) => p.category_id === product!.category_id && p.id !== product!.id)
-                .slice(0, 4)
-        }
+        const allRes = await api('/products')
+        const allProducts: Product[] = allRes.data || allRes
+        related = allProducts
+            .filter((p) => p.category_id === product!.category_id && p.id !== product!.id)
+            .slice(0, 4)
     } catch {
         notFound()
     }

@@ -24,7 +24,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     const [adding, setAdding] = useState(false)
     const [added, setAdded] = useState(false)
 
-    const images = [product.banner, product.banner, product.banner, product.banner]
+    const images = [product.banner, ...(product.images?.map(img => img.url) || [])]
 
     const decreaseQuantity = () => {
         if (quantity > 1) setQuantity(quantity - 1)

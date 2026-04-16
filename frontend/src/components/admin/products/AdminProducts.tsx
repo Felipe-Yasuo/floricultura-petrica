@@ -31,6 +31,10 @@ export default function AdminProducts() {
             setIsLoading(false)
         }
     }
+    const handleProductCreated = (newProduct: Product) => {
+        setEditingProduct(newProduct)
+        fetchProducts()
+    }
 
     const handleEdit = (product: Product) => {
         setEditingProduct(product)
@@ -86,6 +90,7 @@ export default function AdminProducts() {
                     product={editingProduct}
                     onClose={handleFormClose}
                     onSaved={handleFormSaved}
+                    onProductCreated={handleProductCreated}
                 />
             )}
 

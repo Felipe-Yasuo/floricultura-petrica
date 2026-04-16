@@ -8,14 +8,16 @@ import { formatCurrencyInput } from '@/lib/formatCurrency'
 import { Product } from '@/types/product'
 import { FieldErrors, validateProductForm } from './productValidation'
 import ImageUpload from './ImageUpload'
+import ProductImages from './ProductImages'
 
 interface ProductFormProps {
     product: Product | null
     onClose: () => void
     onSaved: () => void
+    onProductCreated: (product: Product) => void
 }
 
-export default function ProductForm({ product, onClose, onSaved }: ProductFormProps) {
+export default function ProductForm({ product, onClose, onSaved, onProductCreated }: ProductFormProps) {
     const { token } = useAuth()
     const [categories, setCategories] = useState<{ id: string; name: string }[]>([])
     const [saving, setSaving] = useState(false)
@@ -94,14 +96,17 @@ export default function ProductForm({ product, onClose, onSaved }: ProductFormPr
                     token: token!,
                     body: JSON.stringify(body),
                 })
+                onSaved()
             } else {
-                await api('/products', {
+                // Criar produto novo
+                const createdProduct = await api('/products', {
                     method: 'POST',
                     token: token!,
                     body: JSON.stringify(body),
                 })
+                // Continua no form, mas agora em modo edição
+                onProductCreated(createdProduct)
             }
-            onSaved()
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Erro ao salvar')
         } finally {
@@ -178,7 +183,11 @@ export default function ProductForm({ product, onClose, onSaved }: ProductFormPr
                     }}
                     error={fieldErrors.banner}
                 />
-
+                {product && (
+                    <div className="sm:col-span-2">
+                        <ProductImages productId={product.id} />
+                    </div>
+                )}
                 <div className="sm:col-span-2">
                     <select
                         value={form.category_id}

@@ -4,6 +4,14 @@ export interface ProductCategory {
     slug: string
 }
 
+export interface ProductImage {
+    id: string
+    url: string
+    position: number
+    product_id: string
+    createdAt: string
+}
+
 export interface Product {
     id: string
     name: string
@@ -15,6 +23,7 @@ export interface Product {
     disabled: boolean
     category_id: string
     category: ProductCategory
+    images?: ProductImage[]
     createdAt: string
     updatedAt: string
 }
