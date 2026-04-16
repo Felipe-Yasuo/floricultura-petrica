@@ -7,7 +7,6 @@ export const createOrderSchema = z.object({
             .uuid('ID do endereço inválido'),
         deliveryDate: z
             .string()
-            .datetime('Data de entrega inválida')
             .optional(),
         notes: z
             .string()

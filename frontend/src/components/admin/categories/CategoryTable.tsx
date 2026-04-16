@@ -49,7 +49,7 @@ export default function CategoryTable({ categories, onEdit, onToggleDisable }: C
     return (
         <div className="rounded-3xl bg-[var(--color-surface-white)] shadow-ambient overflow-hidden">
             {/* Filters */}
-            <div className="flex flex-col sm:flex-row gap-3 p-6 border-b border-[var(--color-surface-container)]">
+            <div className="flex flex-col sm:flex-row gap-3 p-4 sm:p-6 border-b border-[var(--color-surface-container)]">
                 <div className="relative flex-1">
                     <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-foreground-subtle)]" />
                     <input
@@ -71,8 +71,15 @@ export default function CategoryTable({ categories, onEdit, onToggleDisable }: C
                 </select>
             </div>
 
-            {/* Table */}
-            <div className="overflow-x-auto">
+            {/* Empty State */}
+            {filtered.length === 0 && (
+                <div className="px-6 py-12 text-center text-sm text-[var(--color-foreground-muted)]">
+                    Nenhuma categoria encontrada.
+                </div>
+            )}
+
+            {/* Desktop Table */}
+            <div className="hidden lg:block overflow-x-auto">
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-[var(--color-surface-container)]">
@@ -83,54 +90,83 @@ export default function CategoryTable({ categories, onEdit, onToggleDisable }: C
                         </tr>
                     </thead>
                     <tbody>
-                        {filtered.length === 0 ? (
-                            <tr>
-                                <td colSpan={4} className="px-6 py-12 text-center text-sm text-[var(--color-foreground-muted)]">
-                                    Nenhuma categoria encontrada.
+                        {filtered.map((category) => (
+                            <tr
+                                key={category.id}
+                                className="border-b border-[var(--color-surface-container)] last:border-0 hover:bg-[var(--color-surface-container-low)] transition-colors duration-200"
+                            >
+                                <td className="px-6 py-4 text-sm font-medium">{category.name}</td>
+                                <td className="px-6 py-4 text-sm text-[var(--color-foreground-muted)]">{category.slug}</td>
+                                <td className="px-6 py-4">
+                                    <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${category.disabled
+                                        ? 'bg-red-100 text-red-700'
+                                        : 'bg-green-100 text-green-700'
+                                        }`}>
+                                        {category.disabled ? 'Desativada' : 'Ativa'}
+                                    </span>
+                                </td>
+                                <td className="px-6 py-4">
+                                    <div className="flex items-center justify-end gap-2">
+                                        <button
+                                            onClick={() => onEdit(category)}
+                                            className="p-2 rounded-xl hover:bg-[var(--color-surface-container)] transition-colors duration-300"
+                                            aria-label="Editar categoria"
+                                        >
+                                            <Pencil size={16} className="text-[var(--color-foreground-muted)]" />
+                                        </button>
+                                        <button
+                                            onClick={() => onToggleDisable(category)}
+                                            className={`p-2 rounded-xl transition-colors duration-300 ${category.disabled
+                                                ? 'hover:bg-green-50 text-green-600'
+                                                : 'hover:bg-red-50 text-red-500'
+                                                }`}
+                                            aria-label={category.disabled ? 'Ativar categoria' : 'Desativar categoria'}
+                                        >
+                                            <Power size={16} />
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
-                        ) : (
-                            filtered.map((category) => (
-                                <tr
-                                    key={category.id}
-                                    className="border-b border-[var(--color-surface-container)] last:border-0 hover:bg-[var(--color-surface-container-low)] transition-colors duration-200"
-                                >
-                                    <td className="px-6 py-4 text-sm font-medium">{category.name}</td>
-                                    <td className="px-6 py-4 text-sm text-[var(--color-foreground-muted)]">{category.slug}</td>
-                                    <td className="px-6 py-4">
-                                        <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${category.disabled
-                                                ? 'bg-red-100 text-red-700'
-                                                : 'bg-green-100 text-green-700'
-                                            }`}>
-                                            {category.disabled ? 'Desativada' : 'Ativa'}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center justify-end gap-2">
-                                            <button
-                                                onClick={() => onEdit(category)}
-                                                className="p-2 rounded-xl hover:bg-[var(--color-surface-container)] transition-colors duration-300"
-                                                aria-label="Editar categoria"
-                                            >
-                                                <Pencil size={16} className="text-[var(--color-foreground-muted)]" />
-                                            </button>
-                                            <button
-                                                onClick={() => onToggleDisable(category)}
-                                                className={`p-2 rounded-xl transition-colors duration-300 ${category.disabled
-                                                        ? 'hover:bg-green-50 text-green-600'
-                                                        : 'hover:bg-red-50 text-red-500'
-                                                    }`}
-                                                aria-label={category.disabled ? 'Ativar categoria' : 'Desativar categoria'}
-                                            >
-                                                <Power size={16} />
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
+                        ))}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Mobile Cards */}
+            <div className="lg:hidden flex flex-col divide-y divide-[var(--color-surface-container)]">
+                {filtered.map((category) => (
+                    <div key={category.id} className="p-4 flex items-center justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                            <h3 className="text-sm font-medium truncate">{category.name}</h3>
+                            <p className="text-xs text-[var(--color-foreground-muted)] truncate">{category.slug}</p>
+                        </div>
+                        <span className={`shrink-0 inline-flex px-2 py-0.5 rounded-full text-[10px] font-medium ${category.disabled
+                            ? 'bg-red-100 text-red-700'
+                            : 'bg-green-100 text-green-700'
+                            }`}>
+                            {category.disabled ? 'Inativa' : 'Ativa'}
+                        </span>
+                        <div className="flex gap-1 shrink-0">
+                            <button
+                                onClick={() => onEdit(category)}
+                                className="p-2 rounded-lg hover:bg-[var(--color-surface-container)] transition-colors duration-300"
+                                aria-label="Editar categoria"
+                            >
+                                <Pencil size={14} className="text-[var(--color-foreground-muted)]" />
+                            </button>
+                            <button
+                                onClick={() => onToggleDisable(category)}
+                                className={`p-2 rounded-lg transition-colors duration-300 ${category.disabled
+                                    ? 'hover:bg-green-50 text-green-600'
+                                    : 'hover:bg-red-50 text-red-500'
+                                    }`}
+                                aria-label={category.disabled ? 'Ativar categoria' : 'Desativar categoria'}
+                            >
+                                <Power size={14} />
+                            </button>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     )
