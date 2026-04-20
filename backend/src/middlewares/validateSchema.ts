@@ -25,4 +25,4 @@ export const validateSchema =
 
                 res.status(500).json({ error: 'Erro interno do servidor' })
             }
-        }
+        }   
