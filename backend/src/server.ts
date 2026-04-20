@@ -7,6 +7,7 @@ import morgan from 'morgan'
 import compression from 'compression'
 import rateLimit from 'express-rate-limit'
 import routes from './routes'
+import webhookRoutes from './routes/webhook.routes'
 import { errorHandler } from './middlewares/errorHandler'
 
 const app = express()
@@ -19,11 +20,6 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }))
-app.use(rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    message: { error: 'Muitas requisições, tente novamente mais tarde.' }
-}))
 
 // Performance
 app.use(compression())
@@ -31,7 +27,18 @@ app.use(compression())
 // Logging
 app.use(morgan('dev'))
 
-// Parse
+// Webhooks — montados ANTES do express.json() porque precisam de raw body
+// e ANTES do rateLimit porque Stripe pode mandar bursts legítimos de eventos
+app.use('/api/webhooks', webhookRoutes)
+
+// Rate limit — aplicado só nas rotas da API de negócio
+app.use(rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: { error: 'Muitas requisições, tente novamente mais tarde.' }
+}))
+
+// Parse JSON — depois do webhook porque ele precisa de raw body
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
