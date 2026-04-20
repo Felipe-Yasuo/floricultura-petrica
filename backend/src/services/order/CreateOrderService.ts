@@ -1,5 +1,7 @@
 import { AppError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
+import { stripe, STRIPE_CURRENCY } from '../../config/stripe'
+import { env } from '../../config/env'
 
 interface CreateOrderRequest {
     user_id: string
@@ -41,17 +43,22 @@ export class CreateOrderService {
             }
         }
 
-        
         const total = cart.items.reduce((sum, item) => {
             return sum + (item.product.price * item.quantity)
         }, 0)
 
-        const order = await prismaClient.$transaction(async (tx) => {
+        const expiresAt = new Date(
+            Date.now() + env.STRIPE_PAYMENT_INTENT_EXPIRATION_MINUTES * 60 * 1000
+        )
+
+        const result = await prismaClient.$transaction(async (tx) => {
             const newOrder = await tx.order.create({
                 data: {
                     user_id,
                     address_id,
                     total,
+                    status: 'AWAITING_PAYMENT',
+                    expiresAt,
                     deliveryDate: deliveryDate ? new Date(deliveryDate) : null,
                     notes,
                     items: {
@@ -63,9 +70,7 @@ export class CreateOrderService {
                     }
                 },
                 include: {
-                    items: {
-                        include: { product: true }
-                    },
+                    items: { include: { product: true } },
                     address: true,
                 }
             })
@@ -77,13 +82,41 @@ export class CreateOrderService {
                 })
             }
 
-            await tx.cartItem.deleteMany({
-                where: { cart_id: cart.id }
+            const paymentIntent = await stripe.paymentIntents.create(
+                {
+                    amount: total,
+                    currency: STRIPE_CURRENCY,
+                    metadata: {
+                        order_id: newOrder.id,
+                        user_id,
+                    },
+                    automatic_payment_methods: { enabled: true },
+                },
+                {
+                    idempotencyKey: `order-${newOrder.id}`,
+                }
+            )
+
+            if (!paymentIntent.client_secret) {
+                throw new AppError('Falha ao iniciar pagamento', 500)
+            }
+
+            await tx.payment.create({
+                data: {
+                    order_id: newOrder.id,
+                    amount: total,
+                    currency: STRIPE_CURRENCY,
+                    stripePaymentIntentId: paymentIntent.id,
+                    stripeClientSecret: paymentIntent.client_secret,
+                    status: 'PENDING',
+                }
             })
 
-            return newOrder
+            return { order: newOrder, clientSecret: paymentIntent.client_secret }
+        }, {
+            timeout: 15000,
         })
 
-        return order
+        return result
     }
 }
