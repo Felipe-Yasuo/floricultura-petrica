@@ -9,7 +9,8 @@
         "lib": [
             "ES2020"
         ],
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
+        "ignoreDeprecations": "6.0",
         "outDir": "./dist",
         "rootDir": "./src",
         "strict": true,
