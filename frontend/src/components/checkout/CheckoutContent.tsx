@@ -25,9 +25,7 @@ export default function CheckoutContent() {
     const [showNewAddressModal, setShowNewAddressModal] = useState(false)
     const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState('')
-    const [submitted, setSubmitted] = useState(false)
 
-    // Auth guard + carregar dados
     useEffect(() => {
         if (!authLoading && !isAuthenticated) {
             router.push('/login')
@@ -40,13 +38,11 @@ export default function CheckoutContent() {
         }
     }, [isAuthenticated, authLoading])
 
-    // Se o carrinho ficar vazio em algum momento, volta pro carrinho
     useEffect(() => {
-        if (submitted) return
         if (!cartLoading && isAuthenticated && cart.items.length === 0) {
             router.push('/cart')
         }
-    }, [cart.items.length, cartLoading, isAuthenticated, submitted])
+    }, [cart.items.length, cartLoading, isAuthenticated])
 
     const fetchAddresses = async () => {
         if (!token) return
@@ -55,7 +51,6 @@ export default function CheckoutContent() {
             const data = await api('/addresses', { token })
             setAddresses(data)
 
-            // Seleciona automaticamente o endereço padrão ou o primeiro
             const defaultAddr = data.find((a: Address) => a.isDefault)
             if (defaultAddr) {
                 setSelectedAddressId(defaultAddr.id)
@@ -98,7 +93,7 @@ export default function CheckoutContent() {
 
         setSubmitting(true)
         try {
-            const order = await api('/orders', {
+            const response = await api('/orders', {
                 method: 'POST',
                 token,
                 body: JSON.stringify({
@@ -108,17 +103,9 @@ export default function CheckoutContent() {
                 }),
             })
 
-            // Marca como enviado ANTES de atualizar o carrinho
-            // pra desarmar a proteção de "carrinho vazio → volta pro /cart"
-            setSubmitted(true)
-
-            // Navega imediatamente — atualiza o carrinho depois, sem bloquear o redirect
-            router.push(`/checkout/success?order=${order.id}`)
-
-            // fire-and-forget: sincroniza o estado global do carrinho em background
-            fetchCart()
+            router.push(`/checkout/payment?order=${response.order.id}`)
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Erro ao finalizar o pedido.')
+            setError(err instanceof Error ? err.message : 'Erro ao criar pedido.')
             setSubmitting(false)
         }
     }
@@ -137,7 +124,6 @@ export default function CheckoutContent() {
                 <h1 className="font-serif text-3xl lg:text-4xl mb-10">Finalizar Pedido</h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    {/* Coluna esquerda — formulário */}
                     <div className="lg:col-span-2 flex flex-col gap-6">
                         <CheckoutAddressStep
                             addresses={addresses}
@@ -160,7 +146,6 @@ export default function CheckoutContent() {
                         )}
                     </div>
 
-                    {/* Coluna direita — resumo */}
                     <div className="lg:col-span-1">
                         <CheckoutSummary
                             cart={cart}
