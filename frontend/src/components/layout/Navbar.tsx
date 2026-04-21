@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Search, ShoppingBag, Menu, X, User, LogOut } from 'lucide-react'
+import { Search, ShoppingBag, Menu, X, User, LogOut, LayoutDashboard } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useCart } from '@/contexts/CartContext'
 
@@ -67,6 +67,15 @@ export default function Navbar() {
 
                 {isAuthenticated ? (
                     <div className="flex items-center gap-2 ml-2">
+                        {user?.role === 'ADMIN' && (
+                            <Link
+                                href="/admin"
+                                className="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] hover:scale-[1.02] transition-all duration-300"
+                            >
+                                <LayoutDashboard size={16} />
+                                <span className="text-sm font-medium">Admin</span>
+                            </Link>
+                        )}
                         <Link
                             href="/account"
                             className="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-surface-container)] hover:bg-[var(--color-surface-container-high)] transition-colors duration-300"
@@ -147,6 +156,15 @@ export default function Navbar() {
                     <div className="border-t border-[var(--color-surface-container-high)] pt-4 mt-2">
                         {isAuthenticated ? (
                             <div className="flex flex-col gap-3">
+                                {user?.role === 'ADMIN' && (
+                                    <Link
+                                        href="/admin"
+                                        onClick={() => setIsOpen(false)}
+                                        className="text-base font-medium text-[var(--color-primary)]"
+                                    >
+                                        Admin
+                                    </Link>
+                                )}
                                 <Link
                                     href="/account"
                                     onClick={() => setIsOpen(false)}

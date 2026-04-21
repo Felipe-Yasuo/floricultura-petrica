@@ -105,9 +105,6 @@ export default function Products() {
                             <h3 className="font-serif text-base mt-1 group-hover:text-[var(--color-primary)] transition-colors duration-300">
                                 {product.name}
                             </h3>
-                            <p className="text-sm text-[var(--color-foreground-muted)] mt-0.5">
-                                {product.description}
-                            </p>
                             <p className="text-sm font-medium mt-2">
                                 {formatPrice(product.price)}
                             </p>

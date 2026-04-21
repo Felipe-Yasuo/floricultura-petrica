@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Plus, Loader2 } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/lib/api'
@@ -14,6 +14,7 @@ export default function AdminProducts() {
     const [isLoading, setIsLoading] = useState(true)
     const [showForm, setShowForm] = useState(false)
     const [editingProduct, setEditingProduct] = useState<Product | null>(null)
+    const topRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if (token) {
@@ -39,6 +40,7 @@ export default function AdminProducts() {
     const handleEdit = (product: Product) => {
         setEditingProduct(product)
         setShowForm(true)
+        topRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
 
     const handleFormClose = () => {
@@ -73,7 +75,7 @@ export default function AdminProducts() {
     }
 
     return (
-        <div>
+        <div ref={topRef}>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <h1 className="font-serif text-2xl lg:text-3xl">Produtos</h1>
                 <button

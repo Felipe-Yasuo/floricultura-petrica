@@ -9,21 +9,25 @@ import { formatPrice } from '@/lib/utils'
 import { Order } from '@/types/order'
 
 const statusLabels: Record<string, string> = {
+    AWAITING_PAYMENT: 'Aguardando Pagamento',
     PENDING: 'Pendente',
     CONFIRMED: 'Confirmado',
     PREPARING: 'Preparando',
     DELIVERING: 'A Caminho',
     DELIVERED: 'Entregue',
     CANCELLED: 'Cancelado',
+    EXPIRED: 'Expirado',
 }
 
 const statusColors: Record<string, string> = {
+    AWAITING_PAYMENT: 'bg-amber-100 text-amber-700',
     PENDING: 'bg-yellow-100 text-yellow-700',
     CONFIRMED: 'bg-blue-100 text-blue-700',
     PREPARING: 'bg-purple-100 text-purple-700',
     DELIVERING: 'bg-orange-100 text-orange-700',
     DELIVERED: 'bg-green-100 text-green-700',
     CANCELLED: 'bg-red-100 text-red-700',
+    EXPIRED: 'bg-gray-100 text-gray-700',
 }
 
 export default function OrdersPage() {
@@ -80,17 +84,16 @@ export default function OrdersPage() {
         <div>
             <h1 className="font-serif text-2xl lg:text-3xl mb-8">Meus Pedidos</h1>
 
-            <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {orders.map((order) => (
                     <div
                         key={order.id}
-                        className="rounded-3xl bg-[var(--color-surface-white)] p-6 shadow-ambient"
+                        className="rounded-3xl bg-[var(--color-surface-white)] p-6 shadow-ambient flex flex-col"
                     >
-                        {/* Header */}
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                            <div>
-                                <p className="text-xs text-[var(--color-foreground-subtle)]">
-                                    Pedido #{order.id.slice(0, 8)}
+                        <div className="flex items-start justify-between gap-3 mb-4">
+                            <div className="min-w-0">
+                                <p className="text-xs text-[var(--color-foreground-subtle)] font-mono">
+                                    #{order.id.slice(0, 8)}
                                 </p>
                                 <p className="text-xs text-[var(--color-foreground-muted)] mt-1">
                                     {new Date(order.createdAt).toLocaleDateString('pt-BR', {
@@ -100,33 +103,36 @@ export default function OrdersPage() {
                                     })}
                                 </p>
                             </div>
-                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium ${statusColors[order.status]}`}>
-                                {statusLabels[order.status]}
+                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium shrink-0 ${statusColors[order.status] ?? 'bg-gray-100 text-gray-700'}`}>
+                                {statusLabels[order.status] ?? order.status}
                             </span>
                         </div>
 
-                        {/* Items */}
-                        <div className="flex gap-3 mb-4 overflow-x-auto pb-2">
-                            {order.items.map((item) => (
-                                <div key={item.id} className="flex items-center gap-3 shrink-0">
-                                    <div className="w-14 h-14 rounded-xl overflow-hidden bg-[var(--color-surface-container-low)]">
+                        <div className="flex flex-col gap-3 mb-4 flex-1">
+                            {order.items.slice(0, 3).map((item) => (
+                                <div key={item.id} className="flex items-center gap-3">
+                                    <div className="w-12 h-12 rounded-xl overflow-hidden bg-[var(--color-surface-container-low)] shrink-0">
                                         <img
                                             src={item.product.banner}
                                             alt={item.product.name}
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
-                                    <div>
-                                        <p className="text-sm font-medium">{item.product.name}</p>
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-sm font-medium truncate">{item.product.name}</p>
                                         <p className="text-xs text-[var(--color-foreground-muted)]">
-                                            Qtd: {item.quantity} × {formatPrice(item.price)}
+                                            {item.quantity}× {formatPrice(item.price)}
                                         </p>
                                     </div>
                                 </div>
                             ))}
+                            {order.items.length > 3 && (
+                                <p className="text-xs text-[var(--color-foreground-subtle)] pl-15">
+                                    +{order.items.length - 3} {order.items.length - 3 === 1 ? 'item' : 'itens'}
+                                </p>
+                            )}
                         </div>
 
-                        {/* Total */}
                         <div className="flex justify-between items-center pt-4 border-t border-[var(--color-surface-container)]">
                             <span className="text-sm text-[var(--color-foreground-muted)]">Total</span>
                             <span className="font-medium">{formatPrice(order.total)}</span>

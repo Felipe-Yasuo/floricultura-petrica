@@ -34,7 +34,7 @@ app.use('/api/webhooks', webhookRoutes)
 // Rate limit — aplicado só nas rotas da API de negócio
 app.use(rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 1000,
     message: { error: 'Muitas requisições, tente novamente mais tarde.' }
 }))
 

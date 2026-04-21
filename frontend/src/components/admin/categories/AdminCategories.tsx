@@ -30,7 +30,7 @@ export default function AdminCategories() {
 
     const fetchCategories = async () => {
         try {
-            const data = await api('/categories')
+            const data = await api('/categories/all', { token: token! })
             setCategories(data)
         } catch (err) {
             console.error(err)

@@ -89,18 +89,16 @@ export default function AddressesPage() {
     return (
         <div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-
                 <h1 className="font-serif text-2xl lg:text-3xl">Meus Endereços</h1>
                 <button
                     onClick={() => setShowForm(!showForm)}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-sm font-medium hover:scale-[1.02] transition-all duration-300"
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-sm font-medium hover:scale-[1.02] transition-all duration-300 self-start sm:self-auto"
                 >
                     <Plus size={16} />
                     Novo Endereço
                 </button>
             </div>
 
-            {/* Add Form */}
             {showForm && (
                 <div className="rounded-3xl bg-[var(--color-surface-white)] p-6 lg:p-8 shadow-ambient mb-6">
                     {error && (
@@ -195,7 +193,6 @@ export default function AddressesPage() {
                 </div>
             )}
 
-            {/* Address List */}
             {addresses.length === 0 && !showForm ? (
                 <div className="text-center py-20">
                     <div className="w-16 h-16 rounded-full bg-[var(--color-surface-container)] flex items-center justify-center mx-auto mb-4">
@@ -207,14 +204,14 @@ export default function AddressesPage() {
                     </p>
                 </div>
             ) : (
-                <div className="flex flex-col gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {addresses.map((address) => (
                         <div
                             key={address.id}
-                            className="rounded-3xl bg-[var(--color-surface-white)] p-6 shadow-ambient flex items-start justify-between"
+                            className="rounded-3xl bg-[var(--color-surface-white)] p-6 shadow-ambient flex items-start justify-between gap-3"
                         >
-                            <div>
-                                <div className="flex items-center gap-2 mb-2">
+                            <div className="min-w-0">
+                                <div className="flex items-center gap-2 mb-2 flex-wrap">
                                     <h3 className="font-medium text-sm">{address.label || 'Endereço'}</h3>
                                     {address.isDefault && (
                                         <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] text-xs">
@@ -236,7 +233,7 @@ export default function AddressesPage() {
                             </div>
                             <button
                                 onClick={() => handleDelete(address.id)}
-                                className="p-2 rounded-full hover:bg-red-50 text-[var(--color-foreground-muted)] hover:text-red-500 transition-all duration-300"
+                                className="p-2 rounded-full hover:bg-red-50 text-[var(--color-foreground-muted)] hover:text-red-500 transition-all duration-300 shrink-0"
                                 aria-label="Remover endereço"
                             >
                                 <Trash2 size={16} />
