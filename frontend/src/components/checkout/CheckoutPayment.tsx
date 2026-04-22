@@ -18,8 +18,6 @@ interface PaymentData {
     orderId: string
 }
 
-export const dynamic = 'force-dynamic'
-
 export default function CheckoutPayment() {
     const router = useRouter()
     const searchParams = useSearchParams()
