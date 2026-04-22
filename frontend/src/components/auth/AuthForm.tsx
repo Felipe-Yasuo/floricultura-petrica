@@ -6,12 +6,42 @@ import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, ArrowRight, Loader2 } from 'lucide-react'
 import { useGoogleLogin } from '@react-oauth/google'
 import { toast } from 'sonner'
+import { z } from 'zod'
 import { useAuth } from '@/contexts/AuthContext'
 
 type AuthTab = 'login' | 'register'
 
 interface AuthFormProps {
     initialTab?: AuthTab
+}
+
+const loginSchema = z.object({
+    email: z.email({ error: 'Email inválido' }),
+    password: z.string().min(1, { error: 'Senha obrigatória' }),
+})
+
+const registerSchema = z.object({
+    name: z.string().min(2, { error: 'Nome deve ter no mínimo 2 caracteres' }),
+    email: z.email({ error: 'Email inválido' }),
+    password: z.string().min(6, { error: 'A senha deve ter no mínimo 6 caracteres' }),
+    confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: 'As senhas não coincidem',
+    path: ['confirmPassword'],
+})
+
+type FieldErrors = Partial<Record<string, string>>
+
+const inputClass = (error?: string) =>
+    `w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-white)] text-sm text-[var(--color-foreground)] placeholder:text-[var(--color-foreground-subtle)] outline-none transition-all duration-300 focus:ring-2 ${
+        error
+            ? 'ring-2 ring-red-400 focus:ring-red-400'
+            : 'focus:ring-[var(--color-primary)]'
+    }`
+
+function FieldError({ message }: { message?: string }) {
+    if (!message) return null
+    return <p className="text-xs text-red-500 mt-1 pl-1">{message}</p>
 }
 
 export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
@@ -26,6 +56,7 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
     const [showPassword, setShowPassword] = useState(false)
     const [rememberMe, setRememberMe] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
 
     const resetForm = () => {
         setName('')
@@ -33,11 +64,18 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
         setPassword('')
         setConfirmPassword('')
         setShowPassword(false)
+        setFieldErrors({})
     }
 
     const switchTab = (tab: AuthTab) => {
         resetForm()
         setActiveTab(tab)
+    }
+
+    const clearFieldError = (field: string) => {
+        if (fieldErrors[field]) {
+            setFieldErrors((prev) => ({ ...prev, [field]: undefined }))
+        }
     }
 
     const handleGoogleLogin = useGoogleLogin({
@@ -62,17 +100,31 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        if (activeTab === 'register') {
-            if (password !== confirmPassword) {
-                toast.error('As senhas não coincidem')
+        if (activeTab === 'login') {
+            const result = loginSchema.safeParse({ email, password })
+            if (!result.success) {
+                const errors: FieldErrors = {}
+                for (const issue of result.error.issues) {
+                    const field = issue.path[0] as string
+                    if (!errors[field]) errors[field] = issue.message
+                }
+                setFieldErrors(errors)
                 return
             }
-            if (password.length < 6) {
-                toast.error('A senha deve ter no mínimo 6 caracteres')
+        } else {
+            const result = registerSchema.safeParse({ name, email, password, confirmPassword })
+            if (!result.success) {
+                const errors: FieldErrors = {}
+                for (const issue of result.error.issues) {
+                    const field = issue.path[0] as string
+                    if (!errors[field]) errors[field] = issue.message
+                }
+                setFieldErrors(errors)
                 return
             }
         }
 
+        setFieldErrors({})
         setLoading(true)
 
         try {
@@ -143,56 +195,64 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
                     <div className="flex flex-col gap-4">
                         {/* Name - Register only */}
                         {activeTab === 'register' && (
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                placeholder="Nome completo"
-                                required
-                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-white)] text-sm text-[var(--color-foreground)] placeholder:text-[var(--color-foreground-subtle)] outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                            />
+                            <div>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => { setName(e.target.value); clearFieldError('name') }}
+                                    placeholder="Nome completo"
+                                    className={inputClass(fieldErrors.name)}
+                                />
+                                <FieldError message={fieldErrors.name} />
+                            </div>
                         )}
 
                         {/* Email */}
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email"
-                            required
-                            className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-white)] text-sm text-[var(--color-foreground)] placeholder:text-[var(--color-foreground-subtle)] outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
+                        <div>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => { setEmail(e.target.value); clearFieldError('email') }}
+                                placeholder="Email"
+                                className={inputClass(fieldErrors.email)}
+                            />
+                            <FieldError message={fieldErrors.email} />
+                        </div>
 
                         {/* Password */}
-                        <div className="relative">
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder={activeTab === 'register' ? 'Senha (mínimo 6 caracteres)' : 'Senha'}
-                                required
-                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-white)] text-sm text-[var(--color-foreground)] placeholder:text-[var(--color-foreground-subtle)] outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300 pr-12"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-foreground-subtle)] hover:text-[var(--color-foreground)] transition-colors duration-300"
-                                aria-label={showPassword ? 'Esconder senha' : 'Mostrar senha'}
-                            >
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                            </button>
+                        <div>
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    value={password}
+                                    onChange={(e) => { setPassword(e.target.value); clearFieldError('password') }}
+                                    placeholder={activeTab === 'register' ? 'Senha (mínimo 6 caracteres)' : 'Senha'}
+                                    className={`${inputClass(fieldErrors.password)} pr-12`}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--color-foreground-subtle)] hover:text-[var(--color-foreground)] transition-colors duration-300"
+                                    aria-label={showPassword ? 'Esconder senha' : 'Mostrar senha'}
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                            <FieldError message={fieldErrors.password} />
                         </div>
 
                         {/* Confirm Password - Register only */}
                         {activeTab === 'register' && (
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                                placeholder="Confirmar senha"
-                                required
-                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-white)] text-sm text-[var(--color-foreground)] placeholder:text-[var(--color-foreground-subtle)] outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                            />
+                            <div>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    value={confirmPassword}
+                                    onChange={(e) => { setConfirmPassword(e.target.value); clearFieldError('confirmPassword') }}
+                                    placeholder="Confirmar senha"
+                                    className={inputClass(fieldErrors.confirmPassword)}
+                                />
+                                <FieldError message={fieldErrors.confirmPassword} />
+                            </div>
                         )}
 
                         {/* Remember & Forgot - Login only */}

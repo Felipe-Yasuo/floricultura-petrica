@@ -3,8 +3,13 @@
 import { useState, useEffect } from 'react'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { z } from 'zod'
 import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/lib/api'
+
+const categorySchema = z.object({
+    name: z.string().min(2, { error: 'Nome deve ter no mínimo 2 caracteres' }),
+})
 
 interface Category {
     id: string
@@ -33,12 +38,9 @@ export default function CategoryForm({ category, onClose, onSaved }: CategoryFor
     }, [category])
 
     const handleSubmit = async () => {
-        if (!name.trim()) {
-            setFieldError('Nome é obrigatório')
-            return
-        }
-        if (name.trim().length < 2) {
-            setFieldError('Nome deve ter no mínimo 2 caracteres')
+        const result = categorySchema.safeParse({ name: name.trim() })
+        if (!result.success) {
+            setFieldError(result.error.issues[0].message)
             return
         }
 

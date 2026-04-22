@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/lib/api'
 import { formatCurrencyInput } from '@/lib/formatCurrency'
 import { Product } from '@/types/product'
-import { FieldErrors, validateProductForm } from './productValidation'
+import { FieldErrors, productSchema } from './productValidation'
 import ImageUpload from './ImageUpload'
 import ProductImages from './ProductImages'
 
@@ -64,7 +64,7 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
     const handlePriceChange = (value: string) => {
         const { display, cents } = formatCurrencyInput(value)
         setForm({ ...form, priceDisplay: display, priceCents: cents })
-        if (cents > 0) setFieldErrors({ ...fieldErrors, price: undefined })
+        if (cents > 0) setFieldErrors({ ...fieldErrors, priceCents: undefined })
     }
 
     const updateField = (field: string, value: string) => {
@@ -73,9 +73,24 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
     }
 
     const handleSubmit = async () => {
-        const errors = validateProductForm(form)
-        setFieldErrors(errors)
-        if (Object.keys(errors).length > 0) return
+        const result = productSchema.safeParse({
+            name: form.name,
+            description: form.description,
+            priceCents: form.priceCents,
+            stock: form.stock,
+            banner: form.banner,
+            category_id: form.category_id,
+        })
+        if (!result.success) {
+            const errors: FieldErrors = {}
+            for (const issue of result.error.issues) {
+                const field = issue.path[0] as keyof FieldErrors
+                if (!errors[field]) errors[field] = issue.message
+            }
+            setFieldErrors(errors)
+            return
+        }
+        setFieldErrors({})
 
         setSaving(true)
 
@@ -154,9 +169,9 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
                         placeholder="R$ 0,00"
                         value={form.priceDisplay}
                         onChange={(e) => handlePriceChange(e.target.value)}
-                        className={`w-full ${inputClass('price')}`}
+                        className={`w-full ${inputClass('priceCents')}`}
                     />
-                    {fieldErrors.price && <p className="text-xs text-red-500 mt-1.5 ml-1">{fieldErrors.price}</p>}
+                    {fieldErrors.priceCents && <p className="text-xs text-red-500 mt-1.5 ml-1">{fieldErrors.priceCents}</p>}
                 </div>
 
                 <div>
