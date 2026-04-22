@@ -1,6 +1,13 @@
+import type { Metadata } from 'next'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import AccountHeader from '@/components/account/AccountHeader'
+
+export const metadata: Metadata = {
+  title: "Minha Conta",
+  description: "Gerencie seu perfil, endereços e histórico de pedidos.",
+  robots: { index: false },
+}
 
 export default function AccountLayout({
     children,

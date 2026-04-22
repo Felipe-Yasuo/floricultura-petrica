@@ -1,5 +1,12 @@
+import type { Metadata } from 'next'
 import Navbar from '@/components/layout/Navbar'
 import AuthForm from '@/components/auth/AuthForm'
+
+export const metadata: Metadata = {
+  title: "Entrar",
+  description: "Acesse sua conta Pétrica para gerenciar pedidos, endereços e favoritos.",
+  robots: { index: false },
+}
 
 export default function LoginPage() {
     return (

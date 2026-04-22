@@ -16,8 +16,33 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Pétrica — Floricultura Botânica Editorial",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
+  title: {
+    default: "Pétrica — Floricultura Botânica Editorial",
+    template: "%s | Pétrica",
+  },
   description: "Cultivando momentos através da curadoria botânica editorial. Flores frescas, arranjos exclusivos e plantas para transformar seu ambiente.",
+  openGraph: {
+    siteName: "Pétrica",
+    locale: "pt_BR",
+    type: "website",
+    title: "Pétrica — Floricultura Botânica Editorial",
+    description: "Cultivando momentos através da curadoria botânica editorial. Flores frescas, arranjos exclusivos e plantas para transformar seu ambiente.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pétrica — Floricultura Botânica Editorial",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pétrica — Floricultura Botânica Editorial",
+    description: "Cultivando momentos através da curadoria botânica editorial. Flores frescas, arranjos exclusivos e plantas para transformar seu ambiente.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({

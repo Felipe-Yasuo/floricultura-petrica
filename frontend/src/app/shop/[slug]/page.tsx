@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ProductDetail from '@/components/product/ProductDetail'
@@ -8,6 +9,38 @@ import { Product } from '@/types/product'
 
 interface ProductPageProps {
     params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+    const { slug } = await params
+    try {
+        const product: Product = await api(`/products/slug/${slug}`)
+        return {
+            title: product.name,
+            description: product.description,
+            openGraph: {
+                title: `${product.name} | Pétrica`,
+                description: product.description,
+                type: "website",
+                images: [
+                    {
+                        url: product.banner,
+                        width: 1200,
+                        height: 630,
+                        alt: product.name,
+                    },
+                ],
+            },
+            twitter: {
+                card: "summary_large_image",
+                title: `${product.name} | Pétrica`,
+                description: product.description,
+                images: [product.banner],
+            },
+        }
+    } catch {
+        return { title: "Produto não encontrado" }
+    }
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {

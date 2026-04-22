@@ -1,6 +1,17 @@
+import type { Metadata } from 'next'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ShopContent from '@/components/shop/ShopContent'
+
+export const metadata: Metadata = {
+  title: "Nossa Coleção",
+  description: "Explore nossa coleção completa de flores frescas, arranjos exclusivos e plantas. Curadoria botânica inspirada pela efemeridade das estações.",
+  openGraph: {
+    title: "Nossa Coleção | Pétrica",
+    description: "Explore nossa coleção completa de flores frescas, arranjos exclusivos e plantas. Curadoria botânica inspirada pela efemeridade das estações.",
+    type: "website",
+  },
+}
 
 export default function ShopPage() {
     return (
