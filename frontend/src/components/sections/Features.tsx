@@ -17,6 +17,7 @@ export default function Features() {
                         src="/images/features/spring-collection.png"
                         alt="Coleção Despertar da Primavera"
                         fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                         className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-surface-container-low)] via-[var(--color-surface-container-low)]/80 to-[var(--color-surface-container-low)]/30" />
@@ -67,6 +68,7 @@ export default function Features() {
                             src="/images/features/workshop.png"
                             alt="Workshop de arranjos florais"
                             fill
+                            sizes="(max-width: 1024px) 50vw, 25vw"
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -84,6 +86,7 @@ export default function Features() {
                             src="/images/features/gifts.png"
                             alt="Cestas e presentes com flores"
                             fill
+                            sizes="(max-width: 1024px) 50vw, 25vw"
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
