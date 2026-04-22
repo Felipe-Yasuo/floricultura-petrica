@@ -13,6 +13,13 @@ export const authUserSchema = z.object({
     })
 })
 
+// login com Google (access token validado via Google no service)
+export const authWithGoogleSchema = z.object({
+    body: z.object({
+        accessToken: z.string().min(1, 'accessToken é obrigatório'),
+    }),
+})
+
 // cadastro
 export const createUserSchema = z.object({
     body: z.object({

@@ -15,6 +15,8 @@ const envSchema = z.object({
     STRIPE_PAYMENT_INTENT_EXPIRATION_MINUTES: z.coerce.number().int().positive().default(30),
 
     CRON_SECRET: z.string().min(32, 'CRON_SECRET deve ter no mínimo 32 caracteres'),
+
+    GOOGLE_CLIENT_ID: z.string().min(1, 'GOOGLE_CLIENT_ID é obrigatório'),
 })
 
 export const env = envSchema.parse(process.env)

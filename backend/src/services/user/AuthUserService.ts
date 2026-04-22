@@ -18,6 +18,10 @@ export class AuthUserService {
             throw new AppError('Email ou senha inválidos', 401)
         }
 
+        if (!user.password) {
+            throw new AppError('Esta conta foi criada com Google. Entre com o botão do Google.', 401)
+        }
+
         const passwordMatch = await bcrypt.compare(password, user.password)
 
         if (!passwordMatch) {

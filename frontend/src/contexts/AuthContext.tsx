@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { api } from '@/lib/api'
 import { User, AuthResponse } from '@/types/user'
 
@@ -10,6 +11,7 @@ interface AuthContextData {
     isAuthenticated: boolean
     isLoading: boolean
     login: (email: string, password: string) => Promise<void>
+    loginWithGoogle: (accessToken: string) => Promise<void>
     register: (name: string, email: string, password: string) => Promise<void>
     logout: () => void
 }
@@ -33,16 +35,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setIsLoading(false)
     }, [])
 
+    const persistSession = (data: AuthResponse) => {
+        setToken(data.token)
+        setUser(data.user)
+        window.localStorage.setItem('@petrica:token', data.token)
+        window.localStorage.setItem('@petrica:user', JSON.stringify(data.user))
+    }
+
     const login = async (email: string, password: string) => {
         const data: AuthResponse = await api('/users/session', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
         })
 
-        setToken(data.token)
-        setUser(data.user)
-        window.localStorage.setItem('@petrica:token', data.token)
-        window.localStorage.setItem('@petrica:user', JSON.stringify(data.user))
+        persistSession(data)
+    }
+
+    const loginWithGoogle = async (accessToken: string) => {
+        const data: AuthResponse = await api('/users/session/google', {
+            method: 'POST',
+            body: JSON.stringify({ accessToken }),
+        })
+
+        persistSession(data)
     }
 
     const register = async (name: string, email: string, password: string) => {
@@ -62,19 +77,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     return (
-        <AuthContext.Provider
-            value={{
-                user,
-                token,
-                isAuthenticated: !!user,
-                isLoading,
-                login,
-                register,
-                logout,
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? ''}>
+            <AuthContext.Provider
+                value={{
+                    user,
+                    token,
+                    isAuthenticated: !!user,
+                    isLoading,
+                    login,
+                    loginWithGoogle,
+                    register,
+                    logout,
+                }}
+            >
+                {children}
+            </AuthContext.Provider>
+        </GoogleOAuthProvider>
     )
 }
 
