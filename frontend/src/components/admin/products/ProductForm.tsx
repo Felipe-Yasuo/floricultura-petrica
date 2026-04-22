@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/lib/api'
 import { formatCurrencyInput } from '@/lib/formatCurrency'
@@ -21,7 +22,6 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
     const { token } = useAuth()
     const [categories, setCategories] = useState<{ id: string; name: string }[]>([])
     const [saving, setSaving] = useState(false)
-    const [error, setError] = useState('')
     const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
     const [form, setForm] = useState({
         name: '',
@@ -77,7 +77,6 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
         setFieldErrors(errors)
         if (Object.keys(errors).length > 0) return
 
-        setError('')
         setSaving(true)
 
         const body = {
@@ -96,19 +95,19 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
                     token: token!,
                     body: JSON.stringify(body),
                 })
+                toast.success('Produto atualizado com sucesso!')
                 onSaved()
             } else {
-                // Criar produto novo
                 const createdProduct = await api('/products', {
                     method: 'POST',
                     token: token!,
                     body: JSON.stringify(body),
                 })
-                // Continua no form, mas agora em modo edição
+                toast.success('Produto criado com sucesso!')
                 onProductCreated(createdProduct)
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Erro ao salvar')
+            toast.error(err instanceof Error ? err.message : 'Erro ao salvar')
         } finally {
             setSaving(false)
         }
@@ -125,10 +124,6 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
             <h2 className="font-serif text-xl mb-6">
                 {product ? 'Editar Produto' : 'Novo Produto'}
             </h2>
-
-            {error && (
-                <div className="mb-4 p-4 rounded-2xl bg-red-50 text-red-600 text-sm">{error}</div>
-            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2">

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/lib/api'
 
@@ -23,7 +24,6 @@ export default function CategoryForm({ category, onClose, onSaved }: CategoryFor
     const { token } = useAuth()
     const [name, setName] = useState('')
     const [saving, setSaving] = useState(false)
-    const [error, setError] = useState('')
     const [fieldError, setFieldError] = useState('')
 
     useEffect(() => {
@@ -42,7 +42,6 @@ export default function CategoryForm({ category, onClose, onSaved }: CategoryFor
             return
         }
 
-        setError('')
         setFieldError('')
         setSaving(true)
 
@@ -53,16 +52,18 @@ export default function CategoryForm({ category, onClose, onSaved }: CategoryFor
                     token: token!,
                     body: JSON.stringify({ name }),
                 })
+                toast.success('Categoria atualizada com sucesso!')
             } else {
                 await api('/categories', {
                     method: 'POST',
                     token: token!,
                     body: JSON.stringify({ name }),
                 })
+                toast.success('Categoria criada com sucesso!')
             }
             onSaved()
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Erro ao salvar')
+            toast.error(err instanceof Error ? err.message : 'Erro ao salvar')
         } finally {
             setSaving(false)
         }
@@ -73,10 +74,6 @@ export default function CategoryForm({ category, onClose, onSaved }: CategoryFor
             <h2 className="font-serif text-xl mb-6">
                 {category ? 'Editar Categoria' : 'Nova Categoria'}
             </h2>
-
-            {error && (
-                <div className="mb-4 p-4 rounded-2xl bg-red-50 text-red-600 text-sm">{error}</div>
-            )}
 
             <div>
                 <input

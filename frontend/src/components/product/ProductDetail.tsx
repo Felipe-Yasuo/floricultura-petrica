@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, Leaf, Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { useAuth } from '@/contexts/AuthContext'
 import { useCart } from '@/contexts/CartContext'
@@ -43,11 +44,12 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         setAdding(true)
         try {
             await addItem(product.id, quantity)
+            toast.success(`${product.name} adicionado ao carrinho!`)
             setAdded(true)
             setQuantity(1)
             setTimeout(() => setAdded(false), 2000)
         } catch (err) {
-            console.error(err)
+            toast.error(err instanceof Error ? err.message : 'Erro ao adicionar ao carrinho')
         } finally {
             setAdding(false)
         }

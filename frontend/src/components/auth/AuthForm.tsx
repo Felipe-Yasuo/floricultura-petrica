@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, ArrowRight, Loader2 } from 'lucide-react'
 import { useGoogleLogin } from '@react-oauth/google'
+import { toast } from 'sonner'
 import { useAuth } from '@/contexts/AuthContext'
 
 type AuthTab = 'login' | 'register'
@@ -24,7 +25,6 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [rememberMe, setRememberMe] = useState(false)
-    const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
     const resetForm = () => {
@@ -32,7 +32,6 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
         setEmail('')
         setPassword('')
         setConfirmPassword('')
-        setError('')
         setShowPassword(false)
     }
 
@@ -43,34 +42,33 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
 
     const handleGoogleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
-            setError('')
             setGoogleLoading(true)
             try {
                 await loginWithGoogle(tokenResponse.access_token)
+                toast.success('Login realizado com sucesso!')
                 router.push('/')
             } catch (err) {
-                setError(err instanceof Error ? err.message : 'Erro ao entrar com Google')
+                toast.error(err instanceof Error ? err.message : 'Erro ao entrar com Google')
             } finally {
                 setGoogleLoading(false)
             }
         },
         onError: () => {
-            setError('Não foi possível entrar com Google. Tente novamente.')
+            toast.error('Não foi possível entrar com Google. Tente novamente.')
             setGoogleLoading(false)
         },
     })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setError('')
 
         if (activeTab === 'register') {
             if (password !== confirmPassword) {
-                setError('As senhas não coincidem')
+                toast.error('As senhas não coincidem')
                 return
             }
             if (password.length < 6) {
-                setError('A senha deve ter no mínimo 6 caracteres')
+                toast.error('A senha deve ter no mínimo 6 caracteres')
                 return
             }
         }
@@ -80,12 +78,14 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
         try {
             if (activeTab === 'login') {
                 await login(email, password)
+                toast.success('Bem-vindo de volta!')
             } else {
                 await register(name, email, password)
+                toast.success('Conta criada com sucesso!')
             }
             router.push('/')
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Erro ao processar')
+            toast.error(err instanceof Error ? err.message : 'Erro ao processar')
         } finally {
             setLoading(false)
         }
@@ -137,13 +137,6 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
                         Cadastrar
                     </button>
                 </div>
-
-                {/* Error */}
-                {error && (
-                    <div className="mb-6 p-4 rounded-2xl bg-red-50 text-red-600 text-sm">
-                        {error}
-                    </div>
-                )}
 
                 {/* Form Fields */}
                 <div className="rounded-3xl bg-[var(--color-surface-container-low)] p-6 lg:p-8 mb-6">
@@ -252,7 +245,6 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
                 <button
                     type="button"
                     onClick={() => {
-                        setError('')
                         setGoogleLoading(true)
                         handleGoogleLogin()
                     }}
