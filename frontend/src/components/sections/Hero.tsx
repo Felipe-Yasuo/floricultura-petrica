@@ -2,6 +2,7 @@
 
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
 export default function Hero() {
@@ -14,10 +15,12 @@ export default function Hero() {
         >
             {/* Background Image */}
             <div className="absolute inset-0">
-                <img
+                <Image
                     src="/images/hero/hero-bg.jpg"
                     alt="Arranjo floral elegante"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    priority
                 />
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)] via-[var(--color-primary)]/60 to-transparent" />

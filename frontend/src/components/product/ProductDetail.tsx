@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck, Leaf, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -70,10 +71,13 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                 {/* Images */}
                 <div className="animate-on-scroll opacity-0">
                     <div className="relative aspect-square rounded-3xl overflow-hidden bg-[var(--color-surface-container-low)] mb-4">
-                        <img
+                        <Image
                             src={images[activeImage]}
                             alt={product.name}
-                            className="w-full h-full object-cover"
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            className="object-cover"
+                            priority
                         />
                     </div>
 
@@ -87,10 +91,12 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                                     : 'opacity-50 hover:opacity-80'
                                     }`}
                             >
-                                <img
+                                <Image
                                     src={img}
                                     alt={`${product.name} - imagem ${i + 1}`}
-                                    className="w-full h-full object-cover"
+                                    fill
+                                    sizes="80px"
+                                    className="object-cover"
                                 />
                             </button>
                         ))}

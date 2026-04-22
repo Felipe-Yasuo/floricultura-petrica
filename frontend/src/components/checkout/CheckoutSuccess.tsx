@@ -22,7 +22,7 @@ export default function CheckoutSuccess() {
                     O link parece estar incompleto. Tente acessar seus pedidos diretamente.
                 </p>
                 <Link
-                    href="/account/orders"
+                    href="/account"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] font-medium hover:scale-[1.02] transition-all duration-300"
                 >
                     Ver meus pedidos

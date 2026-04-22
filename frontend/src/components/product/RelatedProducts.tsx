@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { formatPrice } from '@/lib/utils'
@@ -44,19 +45,18 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                         style={{ transitionDelay: `${0.1 * (index + 1)}s` }}
                     >
                         <div className="relative aspect-square rounded-3xl overflow-hidden mb-4 bg-[var(--color-surface-container-low)]">
-                            <img
+                            <Image
                                 src={product.banner}
                                 alt={product.name}
-                                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                                fill
+                                sizes="(max-width: 1024px) 50vw, 25vw"
+                                className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                             />
                         </div>
                         <div>
                             <h3 className="font-serif text-base group-hover:text-[var(--color-primary)] transition-colors duration-300">
                                 {product.name}
                             </h3>
-                            <p className="text-xs text-[var(--color-foreground-muted)] mt-0.5">
-                                {product.description}
-                            </p>
                             <p className="text-sm font-medium mt-2">
                                 {formatPrice(product.price)}
                             </p>

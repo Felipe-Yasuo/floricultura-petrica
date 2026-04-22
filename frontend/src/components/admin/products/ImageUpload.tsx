@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Loader2, Upload, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -51,8 +52,8 @@ export default function ImageUpload({ value, onChange, error }: ImageUploadProps
         <div className="sm:col-span-2">
             {value ? (
                 <div className="flex items-center gap-4">
-                    <div className="w-20 h-20 rounded-2xl overflow-hidden bg-[var(--color-surface-container-low)]">
-                        <img src={value} alt="Preview" className="w-full h-full object-cover" />
+                    <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-[var(--color-surface-container-low)]">
+                        <Image src={value} alt="Preview" fill sizes="80px" className="object-cover" />
                     </div>
                     <div className="flex-1">
                         <p className="text-sm text-[var(--color-foreground-muted)] truncate max-w-xs">

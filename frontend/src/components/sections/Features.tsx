@@ -3,6 +3,7 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { Truck, ArrowRight, Gift } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Features() {
     const sectionRef = useScrollAnimation()
@@ -12,10 +13,11 @@ export default function Features() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 auto-rows-[300px]">
                 {/* Large Block - Left */}
                 <div className="animate-on-scroll opacity-0 lg:row-span-2 rounded-3xl p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden">
-                    <img
+                    <Image
                         src="/images/features/spring-collection.png"
                         alt="Coleção Despertar da Primavera"
-                        className="absolute inset-0 w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-surface-container-low)] via-[var(--color-surface-container-low)]/80 to-[var(--color-surface-container-low)]/30" />
                     <div className="relative z-10">
@@ -61,10 +63,11 @@ export default function Features() {
                         className="animate-on-scroll opacity-0 rounded-3xl relative overflow-hidden"
                         style={{ transitionDelay: '0.2s' }}
                     >
-                        <img
+                        <Image
                             src="/images/features/workshop.png"
                             alt="Workshop de arranjos florais"
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                         <span className="absolute bottom-4 left-4 px-4 py-1.5 rounded-full bg-[rgba(255,255,255,0.2)] backdrop-blur-sm text-white text-xs tracking-[0.15em] uppercase">
@@ -77,10 +80,11 @@ export default function Features() {
                         className="animate-on-scroll opacity-0 rounded-3xl relative overflow-hidden"
                         style={{ transitionDelay: '0.3s' }}
                     >
-                        <img
+                        <Image
                             src="/images/features/gifts.png"
                             alt="Cestas e presentes com flores"
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                         <div className="absolute bottom-4 left-4">

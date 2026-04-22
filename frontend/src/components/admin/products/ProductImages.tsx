@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Loader2, Upload, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/lib/api'
@@ -128,7 +129,7 @@ export default function ProductImages({ productId }: ProductImagesProps) {
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                     {images.map((image) => (
                         <div key={image.id} className="relative group aspect-square rounded-2xl overflow-hidden bg-[var(--color-surface-container-low)]">
-                            <img src={image.url} alt="Imagem do produto" className="w-full h-full object-cover" />
+                            <Image src={image.url} alt="Imagem do produto" fill sizes="(max-width: 640px) 33vw, 25vw" className="object-cover" />
                             <button
                                 onClick={() => handleDelete(image.id)}
                                 className="absolute top-2 right-2 p-1.5 rounded-full bg-red-500 text-white opacity-0 group-hover:opacity-100 hover:scale-110 transition-all duration-300"

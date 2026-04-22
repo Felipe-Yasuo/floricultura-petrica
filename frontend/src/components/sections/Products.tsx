@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { api } from '@/lib/api'
@@ -92,10 +93,12 @@ export default function Products() {
                         style={{ transitionDelay: `${0.1 * (index + 1)}s` }}
                     >
                         <div className="relative aspect-square rounded-3xl overflow-hidden mb-4 bg-[var(--color-surface-container-low)]">
-                            <img
+                            <Image
                                 src={product.banner}
                                 alt={product.name}
-                                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                                fill
+                                sizes="(max-width: 1024px) 50vw, 25vw"
+                                className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                             />
                         </div>
                         <div>

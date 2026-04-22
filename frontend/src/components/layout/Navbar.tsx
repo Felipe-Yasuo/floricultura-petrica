@@ -15,6 +15,7 @@ export default function Navbar() {
     return (
         <nav className="fixed top-4 left-4 right-4 z-50 h-[68px] flex items-center justify-between px-6 lg:px-8 rounded-3xl bg-[rgba(255,255,255,0.4)] backdrop-blur-md border border-[rgba(255,255,255,0.32)] shadow-layered">
             {/* Logo - Left */}
+
             <Link
                 href="/"
                 className="font-serif text-2xl italic text-[var(--color-foreground)]"
@@ -25,6 +26,13 @@ export default function Navbar() {
             {/* Links - Center */}
             <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
                 <Link
+                    href="/"
+                    className="text-sm font-medium text-[var(--color-foreground-muted)] hover:text-[var(--color-primary)] transition-colors duration-300"
+                >
+                    Home
+                </Link>
+
+                <Link
                     href="/shop"
                     className="text-sm font-medium text-[var(--color-foreground)] hover:text-[var(--color-primary)] transition-colors duration-300"
                 >
@@ -34,13 +42,7 @@ export default function Navbar() {
                     href="/shop?category=bouquets"
                     className="text-sm font-medium text-[var(--color-foreground-muted)] hover:text-[var(--color-primary)] transition-colors duration-300"
                 >
-                    Bouquets
-                </Link>
-                <Link
-                    href="/about"
-                    className="text-sm font-medium text-[var(--color-foreground-muted)] hover:text-[var(--color-primary)] transition-colors duration-300"
-                >
-                    Sobre
+                    Buquês
                 </Link>
             </div>
 
