@@ -1,38 +1,15 @@
-export interface FieldErrors {
-    name?: string
-    description?: string
-    price?: string
-    stock?: string
-    banner?: string
-    category_id?: string
-}
+import { z } from 'zod'
 
-interface FormData {
-    name: string
-    description: string
-    priceCents: number
-    stock: string
-    banner: string
-    category_id: string
-}
+export const productSchema = z.object({
+    name: z.string().min(2, { error: 'Nome deve ter no mínimo 2 caracteres' }),
+    description: z.string().min(10, { error: 'Descrição deve ter no mínimo 10 caracteres' }),
+    priceCents: z.number({ error: 'Preço inválido' }).min(1, { error: 'Preço deve ser maior que zero' }),
+    stock: z.string().min(1, { error: 'Estoque é obrigatório' }).refine(
+        (v) => Number(v) >= 0,
+        { error: 'Estoque não pode ser negativo' }
+    ),
+    banner: z.string().min(1, { error: 'Imagem é obrigatória' }),
+    category_id: z.string().min(1, { error: 'Selecione uma categoria' }),
+})
 
-export function validateProductForm(form: FormData): FieldErrors {
-    const errors: FieldErrors = {}
-
-    if (!form.name.trim()) errors.name = 'Nome é obrigatório'
-    else if (form.name.trim().length < 2) errors.name = 'Nome deve ter no mínimo 2 caracteres'
-
-    if (!form.description.trim()) errors.description = 'Descrição é obrigatória'
-    else if (form.description.trim().length < 10) errors.description = 'Descrição deve ter no mínimo 10 caracteres'
-
-    if (form.priceCents <= 0) errors.price = 'Preço deve ser maior que zero'
-
-    if (!form.stock) errors.stock = 'Estoque é obrigatório'
-    else if (Number(form.stock) < 0) errors.stock = 'Estoque não pode ser negativo'
-
-    if (!form.banner) errors.banner = 'Imagem é obrigatória'
-
-    if (!form.category_id) errors.category_id = 'Selecione uma categoria'
-
-    return errors
-}
+export type FieldErrors = Partial<Record<keyof z.infer<typeof productSchema>, string>>
