@@ -196,7 +196,9 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
                         {/* Name - Register only */}
                         {activeTab === 'register' && (
                             <div>
+                                <label htmlFor="auth-name" className="sr-only">Nome completo</label>
                                 <input
+                                    id="auth-name"
                                     type="text"
                                     value={name}
                                     onChange={(e) => { setName(e.target.value); clearFieldError('name') }}
@@ -209,7 +211,9 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
 
                         {/* Email */}
                         <div>
+                            <label htmlFor="auth-email" className="sr-only">Email</label>
                             <input
+                                id="auth-email"
                                 type="email"
                                 value={email}
                                 onChange={(e) => { setEmail(e.target.value); clearFieldError('email') }}
@@ -222,7 +226,9 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
                         {/* Password */}
                         <div>
                             <div className="relative">
+                                <label htmlFor="auth-password" className="sr-only">Senha</label>
                                 <input
+                                    id="auth-password"
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
                                     onChange={(e) => { setPassword(e.target.value); clearFieldError('password') }}
@@ -244,7 +250,9 @@ export default function AuthForm({ initialTab = 'login' }: AuthFormProps) {
                         {/* Confirm Password - Register only */}
                         {activeTab === 'register' && (
                             <div>
+                                <label htmlFor="auth-confirm-password" className="sr-only">Confirmar senha</label>
                                 <input
+                                    id="auth-confirm-password"
                                     type={showPassword ? 'text' : 'password'}
                                     value={confirmPassword}
                                     onChange={(e) => { setConfirmPassword(e.target.value); clearFieldError('confirmPassword') }}

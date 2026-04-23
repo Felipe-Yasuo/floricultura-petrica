@@ -103,7 +103,9 @@ export default function Footer() {
                             Receba novidades e ofertas exclusivas.
                         </p>
                         <div className="flex gap-2">
+                            <label htmlFor="footer-newsletter-email" className="sr-only">Seu e-mail para newsletter</label>
                             <input
+                                id="footer-newsletter-email"
                                 type="email"
                                 placeholder="Email"
                                 className="flex-1 px-4 py-2.5 rounded-full bg-[rgba(255,255,255,0.1)] text-sm text-white placeholder:text-[rgba(255,255,255,0.3)] outline-none focus:ring-1 focus:ring-[var(--color-secondary-light)] transition-all duration-300"

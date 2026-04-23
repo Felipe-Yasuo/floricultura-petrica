@@ -24,6 +24,7 @@ export default function Newsletter() {
                 <img
                     src="/images/textures/botanical-texture.png"
                     alt=""
+                    aria-hidden="true"
                     className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
                 />
                 <h2
@@ -57,7 +58,9 @@ export default function Newsletter() {
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                            <label htmlFor="newsletter-email" className="sr-only">Seu e-mail</label>
                             <input
+                                id="newsletter-email"
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}

@@ -106,63 +106,95 @@ export default function AddressesPage() {
                     )}
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <input
-                            type="text"
-                            placeholder="Apelido (ex: Casa, Trabalho)"
-                            value={form.label}
-                            onChange={(e) => setForm({ ...form, label: e.target.value })}
-                            className="px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
-                        <input
-                            type="text"
-                            placeholder="CEP"
-                            value={form.zipCode}
-                            onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
-                            className="px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Rua"
-                            value={form.street}
-                            onChange={(e) => setForm({ ...form, street: e.target.value })}
-                            className="sm:col-span-2 px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Número"
-                            value={form.number}
-                            onChange={(e) => setForm({ ...form, number: e.target.value })}
-                            className="px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Complemento"
-                            value={form.complement}
-                            onChange={(e) => setForm({ ...form, complement: e.target.value })}
-                            className="px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Bairro"
-                            value={form.neighborhood}
-                            onChange={(e) => setForm({ ...form, neighborhood: e.target.value })}
-                            className="px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Cidade"
-                            value={form.city}
-                            onChange={(e) => setForm({ ...form, city: e.target.value })}
-                            className="px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Estado (ex: PR)"
-                            maxLength={2}
-                            value={form.state}
-                            onChange={(e) => setForm({ ...form, state: e.target.value.toUpperCase() })}
-                            className="px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
-                        />
+                        <div>
+                            <label htmlFor="addr-label" className="sr-only">Apelido</label>
+                            <input
+                                id="addr-label"
+                                type="text"
+                                placeholder="Apelido (ex: Casa, Trabalho)"
+                                value={form.label}
+                                onChange={(e) => setForm({ ...form, label: e.target.value })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="addr-zipCode" className="sr-only">CEP</label>
+                            <input
+                                id="addr-zipCode"
+                                type="text"
+                                placeholder="CEP"
+                                value={form.zipCode}
+                                onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
+                        <div className="sm:col-span-2">
+                            <label htmlFor="addr-street" className="sr-only">Rua</label>
+                            <input
+                                id="addr-street"
+                                type="text"
+                                placeholder="Rua"
+                                value={form.street}
+                                onChange={(e) => setForm({ ...form, street: e.target.value })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="addr-number" className="sr-only">Número</label>
+                            <input
+                                id="addr-number"
+                                type="text"
+                                placeholder="Número"
+                                value={form.number}
+                                onChange={(e) => setForm({ ...form, number: e.target.value })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="addr-complement" className="sr-only">Complemento</label>
+                            <input
+                                id="addr-complement"
+                                type="text"
+                                placeholder="Complemento"
+                                value={form.complement}
+                                onChange={(e) => setForm({ ...form, complement: e.target.value })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="addr-neighborhood" className="sr-only">Bairro</label>
+                            <input
+                                id="addr-neighborhood"
+                                type="text"
+                                placeholder="Bairro"
+                                value={form.neighborhood}
+                                onChange={(e) => setForm({ ...form, neighborhood: e.target.value })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="addr-city" className="sr-only">Cidade</label>
+                            <input
+                                id="addr-city"
+                                type="text"
+                                placeholder="Cidade"
+                                value={form.city}
+                                onChange={(e) => setForm({ ...form, city: e.target.value })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="addr-state" className="sr-only">Estado</label>
+                            <input
+                                id="addr-state"
+                                type="text"
+                                placeholder="Estado (ex: PR)"
+                                maxLength={2}
+                                value={form.state}
+                                onChange={(e) => setForm({ ...form, state: e.target.value.toUpperCase() })}
+                                className="w-full px-5 py-3.5 rounded-2xl bg-[var(--color-surface-container)] text-sm outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition-all duration-300"
+                            />
+                        </div>
 
                         <label className="sm:col-span-2 flex items-center gap-2 cursor-pointer">
                             <input

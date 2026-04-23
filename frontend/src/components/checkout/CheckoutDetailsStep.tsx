@@ -21,11 +21,12 @@ export default function CheckoutDetailsStep({
     return (
         <div className="rounded-3xl bg-[var(--color-surface-white)] p-6 lg:p-8 shadow-ambient flex flex-col gap-6">
             <div>
-                <h2 className="font-serif text-xl mb-2">Data de Entrega</h2>
+                <label htmlFor="checkout-delivery-date" className="font-serif text-xl mb-2 block">Data de Entrega</label>
                 <p className="text-sm text-[var(--color-foreground-muted)] mb-4">
                     Escolha a partir de quando você quer receber seu pedido.
                 </p>
                 <input
+                    id="checkout-delivery-date"
                     type="date"
                     value={deliveryDate}
                     min={minDate}
@@ -35,11 +36,12 @@ export default function CheckoutDetailsStep({
             </div>
 
             <div>
-                <h2 className="font-serif text-xl mb-2">Observações</h2>
+                <label htmlFor="checkout-notes" className="font-serif text-xl mb-2 block">Observações</label>
                 <p className="text-sm text-[var(--color-foreground-muted)] mb-4">
                     Alguma instrução especial para a entrega? (opcional)
                 </p>
                 <textarea
+                    id="checkout-notes"
                     value={notes}
                     onChange={(e) => onChangeNotes(e.target.value)}
                     placeholder="Ex: mensagem no cartão, horário preferido, ponto de referência..."

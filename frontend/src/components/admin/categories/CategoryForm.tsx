@@ -78,7 +78,9 @@ export default function CategoryForm({ category, onClose, onSaved }: CategoryFor
             </h2>
 
             <div>
+                <label htmlFor="category-name" className="sr-only">Nome da categoria</label>
                 <input
+                    id="category-name"
                     type="text"
                     placeholder="Nome da categoria"
                     value={name}

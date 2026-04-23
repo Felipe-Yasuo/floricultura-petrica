@@ -86,6 +86,8 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                             <button
                                 key={i}
                                 onClick={() => setActiveImage(i)}
+                                aria-label={`Ver imagem ${i + 1} de ${images.length}`}
+                                aria-pressed={activeImage === i}
                                 className={`w-20 h-20 rounded-2xl overflow-hidden transition-all duration-300 ${activeImage === i
                                     ? 'ring-2 ring-[var(--color-primary)] opacity-100'
                                     : 'opacity-50 hover:opacity-80'

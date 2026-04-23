@@ -142,7 +142,9 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2">
+                    <label htmlFor="product-name" className="sr-only">Nome do produto</label>
                     <input
+                        id="product-name"
                         type="text"
                         placeholder="Nome do produto"
                         value={form.name}
@@ -153,7 +155,9 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
                 </div>
 
                 <div className="sm:col-span-2">
+                    <label htmlFor="product-description" className="sr-only">Descrição</label>
                     <textarea
+                        id="product-description"
                         placeholder="Descrição"
                         value={form.description}
                         onChange={(e) => updateField('description', e.target.value)}
@@ -164,7 +168,9 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
                 </div>
 
                 <div>
+                    <label htmlFor="product-price" className="sr-only">Preço</label>
                     <input
+                        id="product-price"
                         type="text"
                         placeholder="R$ 0,00"
                         value={form.priceDisplay}
@@ -175,7 +181,9 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
                 </div>
 
                 <div>
+                    <label htmlFor="product-stock" className="sr-only">Estoque</label>
                     <input
+                        id="product-stock"
                         type="number"
                         placeholder="Estoque"
                         value={form.stock}
@@ -199,7 +207,9 @@ export default function ProductForm({ product, onClose, onSaved, onProductCreate
                     </div>
                 )}
                 <div className="sm:col-span-2">
+                    <label htmlFor="product-category" className="sr-only">Categoria</label>
                     <select
+                        id="product-category"
                         value={form.category_id}
                         onChange={(e) => updateField('category_id', e.target.value)}
                         className={`w-full appearance-none cursor-pointer ${inputClass('category_id')}`}
