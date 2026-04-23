@@ -68,7 +68,7 @@ export default function CheckoutSuccess() {
                     {state.message}
                 </p>
                 <Link
-                    href="/account/orders"
+                    href="/account"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] font-medium hover:scale-[1.02] transition-all duration-300"
                 >
                     Ver meus pedidos
@@ -102,7 +102,7 @@ export default function CheckoutSuccess() {
                 </div>
 
                 <Link
-                    href="/account/orders"
+                    href="/account"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] font-medium hover:scale-[1.02] transition-all duration-300"
                 >
                     <Package size={16} />
@@ -142,7 +142,7 @@ export default function CheckoutSuccess() {
                         Tentar novamente
                     </Link>
                     <Link
-                        href="/account/orders"
+                        href="/account"
                         className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[var(--color-surface-container)] text-sm font-medium hover:bg-[var(--color-surface-container-high)] transition-colors duration-300"
                     >
                         Ver meus pedidos
@@ -194,7 +194,7 @@ export default function CheckoutSuccess() {
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
-                    href="/account/orders"
+                    href="/account"
                     className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[var(--color-primary)] text-[var(--color-on-primary)] font-medium hover:scale-[1.02] transition-all duration-300"
                 >
                     <Package size={16} />
