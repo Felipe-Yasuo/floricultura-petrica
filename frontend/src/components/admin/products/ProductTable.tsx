@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import { Pencil, Power, Search } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
 import { Product } from '@/types/product'
+import { useDebounce } from '@/hooks/useDebounce'
 
 interface ProductTableProps {
     products: Product[]
@@ -16,13 +17,14 @@ type SortBy = 'name' | 'status' | 'stock' | 'price'
 export default function ProductTable({ products, onEdit, onToggleDisable }: ProductTableProps) {
     const [search, setSearch] = useState('')
     const [sortBy, setSortBy] = useState<SortBy>('name')
+    const debouncedSearch = useDebounce(search)
 
     const filtered = useMemo(() => {
         let result = [...products]
 
-        if (search) {
+        if (debouncedSearch) {
             result = result.filter((p) =>
-                p.name.toLowerCase().includes(search.toLowerCase())
+                p.name.toLowerCase().includes(debouncedSearch.toLowerCase())
             )
         }
 
@@ -42,7 +44,7 @@ export default function ProductTable({ products, onEdit, onToggleDisable }: Prod
         }
 
         return result
-    }, [products, search, sortBy])
+    }, [products, debouncedSearch, sortBy])
 
     return (
         <div className="rounded-3xl bg-[var(--color-surface-white)] shadow-ambient overflow-hidden">

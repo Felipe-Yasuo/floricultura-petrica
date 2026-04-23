@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { Pencil, Power, Search } from 'lucide-react'
+import { useDebounce } from '@/hooks/useDebounce'
 
 interface Category {
     id: string
@@ -22,13 +23,14 @@ type FilterStatus = 'all' | 'active' | 'disabled'
 export default function CategoryTable({ categories, onEdit, onToggleDisable }: CategoryTableProps) {
     const [search, setSearch] = useState('')
     const [filterStatus, setFilterStatus] = useState<FilterStatus>('all')
+    const debouncedSearch = useDebounce(search)
 
     const filtered = useMemo(() => {
         let result = [...categories]
 
-        if (search) {
+        if (debouncedSearch) {
             result = result.filter((c) =>
-                c.name.toLowerCase().includes(search.toLowerCase())
+                c.name.toLowerCase().includes(debouncedSearch.toLowerCase())
             )
         }
 
@@ -44,7 +46,7 @@ export default function CategoryTable({ categories, onEdit, onToggleDisable }: C
         result.sort((a, b) => a.name.localeCompare(b.name))
 
         return result
-    }, [categories, search, filterStatus])
+    }, [categories, debouncedSearch, filterStatus])
 
     return (
         <div className="rounded-3xl bg-[var(--color-surface-white)] shadow-ambient overflow-hidden">

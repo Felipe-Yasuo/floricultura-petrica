@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { Search } from 'lucide-react'
+import { useDebounce } from '@/hooks/useDebounce'
 import { Order } from '@/types/order'
 import ConfirmModal from '@/components/ui/ConfirmModal'
 import OrderRow from './OrderRow'
@@ -30,14 +31,15 @@ export default function OrdersTable({ orders, onUpdateStatus }: OrdersTableProps
     const [filterStatus, setFilterStatus] = useState<FilterStatus>('all')
     const [expandedOrder, setExpandedOrder] = useState<string | null>(null)
     const [pendingChange, setPendingChange] = useState<{ orderId: string; newStatus: string } | null>(null)
+    const debouncedSearch = useDebounce(search)
 
     const filtered = useMemo(() => {
         let result = [...orders]
 
-        if (search) {
+        if (debouncedSearch) {
             result = result.filter((o) =>
-                o.id.toLowerCase().includes(search.toLowerCase()) ||
-                o.user?.name?.toLowerCase().includes(search.toLowerCase())
+                o.id.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+                o.user?.name?.toLowerCase().includes(debouncedSearch.toLowerCase())
             )
         }
 
@@ -46,7 +48,7 @@ export default function OrdersTable({ orders, onUpdateStatus }: OrdersTableProps
         }
 
         return result
-    }, [orders, search, filterStatus])
+    }, [orders, debouncedSearch, filterStatus])
 
     const handleStatusChange = (orderId: string, newStatus: string) => {
         if (criticalStatuses.includes(newStatus)) {
