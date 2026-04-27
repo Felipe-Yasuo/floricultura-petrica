@@ -180,7 +180,7 @@ export default function ShopContent() {
                             className="animate-on-scroll opacity-0 group"
                             style={{ transitionDelay: `${0.05 * (index + 1)}s` }}
                         >
-                            <div className="relative aspect-square rounded-3xl overflow-hidden mb-4 bg-[var(--color-surface-container-low)]">
+                            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden mb-4 bg-[var(--color-surface-container-low)]">
                                 <Image
                                     src={product.banner}
                                     alt={product.name}
