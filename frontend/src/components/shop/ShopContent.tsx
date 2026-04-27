@@ -106,9 +106,8 @@ export default function ShopContent() {
     }
 
     return (
-        <section ref={sectionRef} className="flex flex-col lg:flex-row gap-10">
-            {/* Sidebar */}
-            <aside className="lg:w-56 shrink-0">
+        <section ref={sectionRef} className="flex flex-col lg:flex-row lg:items-start gap-10">
+            <aside className="lg:w-56 shrink-0 lg:sticky lg:top-8">
                 <div className="mb-8">
                     <h3 className="text-xs tracking-[0.2em] uppercase text-[var(--color-foreground-subtle)] mb-4">
                         Categorias
