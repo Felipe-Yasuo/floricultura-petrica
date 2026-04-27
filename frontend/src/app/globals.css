@@ -109,6 +109,10 @@ body {
   line-height: 1.6;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 html,
 body {
   overflow-x: hidden;

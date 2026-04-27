@@ -17,7 +17,7 @@ export default function ShopPage() {
     return (
         <>
             <Navbar />
-            <main className="pt-28 pb-24 px-6 lg:px-8 max-w-7xl mx-auto">
+            <main className="pt-28 pb-24 px-6 lg:px-8 max-w-7xl mx-auto w-full">
                 {/* Header */}
                 <div className="mb-12">
                     <h1 className="text-4xl lg:text-6xl leading-[1.1] mb-4">
