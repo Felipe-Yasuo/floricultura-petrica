@@ -107,7 +107,7 @@ export default function ShopContent() {
 
     return (
         <section ref={sectionRef} className="flex flex-col lg:flex-row lg:items-start gap-10">
-            <aside className="lg:w-56 shrink-0 lg:sticky lg:top-8">
+            <aside className="w-full lg:w-56 lg:basis-56 lg:shrink-0 lg:grow-0 lg:sticky lg:top-8">
                 <div className="mb-8">
                     <h3 className="text-xs tracking-[0.2em] uppercase text-[var(--color-foreground-subtle)] mb-4">
                         Categorias
@@ -170,7 +170,7 @@ export default function ShopContent() {
             </aside>
 
             {/* Products Grid */}
-            <div className="flex-1">
+            <div className="flex-1 min-w-0 w-full">
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                     {paginated.map((product, index) => (
                         <Link
@@ -179,7 +179,7 @@ export default function ShopContent() {
                             className="animate-on-scroll opacity-0 group"
                             style={{ transitionDelay: `${0.05 * (index + 1)}s` }}
                         >
-                            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden mb-4 bg-[var(--color-surface-container-low)]">
+                            <div className="relative aspect-square rounded-3xl overflow-hidden mb-4 bg-[var(--color-surface-container-low)]">
                                 <Image
                                     src={product.banner}
                                     alt={product.name}
