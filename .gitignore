@@ -1,6 +1,5 @@
 CLAUDE.md
 
-# Claude Code local settings
-.claude/settings.local.json
+.claude
 .agents
 skills-lock.json

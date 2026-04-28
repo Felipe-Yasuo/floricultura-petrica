@@ -58,7 +58,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
     return (
         <section ref={sectionRef}>
-            {/* Breadcrumb */}
+
             <nav className="animate-on-scroll opacity-0 flex items-center gap-2 text-xs tracking-[0.15em] uppercase text-[var(--color-foreground-subtle)] mb-10">
                 <Link href="/shop" className="hover:text-[var(--color-primary)] transition-colors duration-300">
                     Shop
@@ -68,7 +68,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             </nav>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                {/* Images */}
+
                 <div className="animate-on-scroll opacity-0">
                     <div className="relative aspect-square rounded-3xl overflow-hidden bg-[var(--color-surface-container-low)] mb-4">
                         <Image
@@ -105,7 +105,6 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     </div>
                 </div>
 
-                {/* Info */}
                 <div>
                     <h1
                         className="animate-on-scroll opacity-0 text-3xl lg:text-4xl leading-[1.1] mb-4"
@@ -134,7 +133,6 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                         {product.stock > 0 ? `${product.stock} em estoque` : 'Fora de estoque'}
                     </p>
 
-                    {/* Care Tips */}
                     <div
                         className="animate-on-scroll opacity-0 rounded-2xl bg-[var(--color-surface-container-low)] p-5 mb-8"
                         style={{ transitionDelay: '0.25s' }}

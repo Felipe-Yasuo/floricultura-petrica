@@ -1,17 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Package, Tag, ShoppingCart, Users, Loader2 } from 'lucide-react'
+import { Package, Tag, ShoppingCart, Users, Loader2, MapPin } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
+import { Order } from '@/types/order'
 
 interface Metrics {
     totalProducts: number
     totalCategories: number
-    totalOrders: number
+    pendingOrders: number
     totalRevenue: number
-    recentOrders: any[]
+    upcomingDeliveries: Order[]
 }
 
 const statusLabels: Record<string, string> = {
@@ -32,6 +33,8 @@ const statusColors: Record<string, string> = {
     CANCELLED: 'bg-red-100 text-red-700',
 }
 
+const ACTIVE_STATUSES = ['PENDING', 'CONFIRMED', 'PREPARING', 'DELIVERING']
+
 export default function DashboardOverview() {
     const { token } = useAuth()
     const [metrics, setMetrics] = useState<Metrics | null>(null)
@@ -46,25 +49,36 @@ export default function DashboardOverview() {
     const fetchMetrics = async () => {
         try {
             const [productsRes, categoriesRes, ordersRes] = await Promise.all([
-                api('/products'),
-                api('/categories'),
+                api('/products/all', { token: token! }),
+                api('/categories/all', { token: token! }),
                 api('/orders', { token: token! }),
             ])
 
-            const products = productsRes.data || productsRes
-            const categories = categoriesRes
-            const orders = ordersRes.data || ordersRes
+            const products = Array.isArray(productsRes) ? productsRes : productsRes.data ?? []
+            const categories = Array.isArray(categoriesRes) ? categoriesRes : categoriesRes.data ?? []
+            const orders: Order[] = Array.isArray(ordersRes) ? ordersRes : ordersRes.data ?? []
 
             const totalRevenue = orders
-                .filter((o: any) => o.status !== 'CANCELLED')
-                .reduce((sum: number, o: any) => sum + o.total, 0)
+                .filter((o) => o.status !== 'CANCELLED')
+                .reduce((sum, o) => sum + o.total, 0)
+
+            const activeOrders = orders.filter((o) => ACTIVE_STATUSES.includes(o.status))
+
+            const upcomingDeliveries = [...activeOrders]
+                .sort((a, b) => {
+                    const da = a.deliveryDate ? new Date(a.deliveryDate).getTime() : Number.POSITIVE_INFINITY
+                    const db = b.deliveryDate ? new Date(b.deliveryDate).getTime() : Number.POSITIVE_INFINITY
+                    if (da !== db) return da - db
+                    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+                })
+                .slice(0, 5)
 
             setMetrics({
                 totalProducts: products.length,
                 totalCategories: categories.length,
-                totalOrders: orders.length,
+                pendingOrders: activeOrders.length,
                 totalRevenue,
-                recentOrders: orders.slice(0, 5),
+                upcomingDeliveries,
             })
         } catch (err) {
             console.error(err)
@@ -84,7 +98,7 @@ export default function DashboardOverview() {
     const cards = [
         { label: 'Produtos', value: metrics?.totalProducts || 0, icon: Package, color: 'text-blue-600 bg-blue-50' },
         { label: 'Categorias', value: metrics?.totalCategories || 0, icon: Tag, color: 'text-purple-600 bg-purple-50' },
-        { label: 'Pedidos', value: metrics?.totalOrders || 0, icon: ShoppingCart, color: 'text-orange-600 bg-orange-50' },
+        { label: 'Pedidos a Entregar', value: metrics?.pendingOrders || 0, icon: ShoppingCart, color: 'text-orange-600 bg-orange-50' },
         { label: 'Receita Total', value: formatPrice(metrics?.totalRevenue || 0), icon: Users, color: 'text-green-600 bg-green-50' },
     ]
 
@@ -110,33 +124,76 @@ export default function DashboardOverview() {
                 ))}
             </div>
 
-            {/* Recent Orders */}
+            {/* Próximas Entregas */}
             <div className="rounded-3xl bg-[var(--color-surface-white)] p-6 lg:p-8 shadow-ambient">
-                <h2 className="font-serif text-xl mb-6">Pedidos Recentes</h2>
+                <h2 className="font-serif text-xl mb-6">Próximas Entregas</h2>
 
-                {metrics?.recentOrders.length === 0 ? (
+                {metrics?.upcomingDeliveries.length === 0 ? (
                     <p className="text-sm text-[var(--color-foreground-muted)] py-8 text-center">
-                        Nenhum pedido ainda.
+                        Nenhuma entrega pendente.
                     </p>
                 ) : (
-                    <div className="flex flex-col gap-4">
-                        {metrics?.recentOrders.map((order: any) => (
+                    <div className="flex flex-col gap-5">
+                        {metrics?.upcomingDeliveries.map((order) => (
                             <div
                                 key={order.id}
-                                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-4 border-b border-[var(--color-surface-container)] last:border-0"
+                                className="flex flex-col gap-4 py-5 border-b border-[var(--color-surface-container)] last:border-0 last:pb-0 first:pt-0"
                             >
-                                <div>
-                                    <p className="text-sm font-medium">Pedido #{order.id.slice(0, 8)}</p>
-                                    <p className="text-xs text-[var(--color-foreground-muted)] mt-1">
-                                        {order.user?.name || 'Cliente'} — {new Date(order.createdAt).toLocaleDateString('pt-BR')}
-                                    </p>
+                                {/* Cabeçalho */}
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div>
+                                        <p className="text-sm font-medium">Pedido #{order.id.slice(0, 8)}</p>
+                                        <p className="text-xs text-[var(--color-foreground-muted)] mt-1">
+                                            {order.user?.name || 'Cliente'}
+                                            {order.deliveryDate && (
+                                                <>
+                                                    {' — entrega em '}
+                                                    {new Date(order.deliveryDate).toLocaleDateString('pt-BR', {
+                                                        day: '2-digit',
+                                                        month: 'long',
+                                                    })}
+                                                </>
+                                            )}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-3 shrink-0">
+                                        <span className="text-sm font-medium">{formatPrice(order.total)}</span>
+                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[order.status]}`}>
+                                            {statusLabels[order.status]}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <span className="text-sm font-medium">{formatPrice(order.total)}</span>
-                                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[order.status]}`}>
-                                        {statusLabels[order.status]}
-                                    </span>
+
+                                {/* Itens a entregar */}
+                                <div className="flex flex-col gap-2">
+                                    {order.items.map((item) => (
+                                        <div key={item.id} className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-xl overflow-hidden bg-[var(--color-surface-container-low)] shrink-0">
+                                                <img
+                                                    src={item.product.banner}
+                                                    alt={item.product.name}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-sm font-medium truncate">{item.product.name}</p>
+                                                <p className="text-xs text-[var(--color-foreground-muted)]">
+                                                    {item.quantity}x {formatPrice(item.price)}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
+
+                                {/* Endereço */}
+                                {order.address && (
+                                    <div className="flex items-start gap-2 text-xs text-[var(--color-foreground-muted)]">
+                                        <MapPin size={14} className="shrink-0 mt-0.5" />
+                                        <span>
+                                            {order.address.street}, {order.address.number} — {order.address.neighborhood}, {order.address.city}/{order.address.state}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
