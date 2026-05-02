@@ -76,20 +76,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         window.localStorage.removeItem('@petrica:user')
     }
 
+    const contextValue = {
+        user,
+        token,
+        isAuthenticated: !!user,
+        isLoading,
+        login,
+        loginWithGoogle,
+        register,
+        logout,
+    }
+
     return (
-        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? ''}>
-            <AuthContext.Provider
-                value={{
-                    user,
-                    token,
-                    isAuthenticated: !!user,
-                    isLoading,
-                    login,
-                    loginWithGoogle,
-                    register,
-                    logout,
-                }}
-            >
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? 'no-client-id'}>
+            <AuthContext.Provider value={contextValue}>
                 {children}
             </AuthContext.Provider>
         </GoogleOAuthProvider>
