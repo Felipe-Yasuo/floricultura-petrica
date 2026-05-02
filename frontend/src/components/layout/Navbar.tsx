@@ -38,12 +38,6 @@ export default function Navbar() {
                 >
                     Shop
                 </Link>
-                <Link
-                    href="/shop?category=bouquets"
-                    className="text-sm font-medium text-[var(--color-foreground-muted)] hover:text-[var(--color-primary)] transition-colors duration-300"
-                >
-                    Buquês
-                </Link>
             </div>
 
             {/* Icons - Right */}
@@ -139,20 +133,6 @@ export default function Navbar() {
                         className="text-base font-medium text-[var(--color-foreground)] hover:text-[var(--color-primary)] transition-colors"
                     >
                         Shop
-                    </Link>
-                    <Link
-                        href="/shop?category=bouquets"
-                        onClick={() => setIsOpen(false)}
-                        className="text-base font-medium text-[var(--color-foreground-muted)] hover:text-[var(--color-primary)] transition-colors"
-                    >
-                        Bouquets
-                    </Link>
-                    <Link
-                        href="/about"
-                        onClick={() => setIsOpen(false)}
-                        className="text-base font-medium text-[var(--color-foreground-muted)] hover:text-[var(--color-primary)] transition-colors"
-                    >
-                        Sobre
                     </Link>
 
                     <div className="border-t border-[var(--color-surface-container-high)] pt-4 mt-2">
