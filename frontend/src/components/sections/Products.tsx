@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Loader2 } from 'lucide-react'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 import { api } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
@@ -18,30 +18,26 @@ interface Category {
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([])
     const [categories, setCategories] = useState<Category[]>([])
-    const [activeCategory, setActiveCategory] = useState('Todos')
-    const sectionRef = useScrollAnimation([activeCategory, products])
+    const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const sectionRef = useScrollAnimation([activeCategoryId, products])
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const [productsRes, categoriesRes] = await Promise.all([
-                    api('/products'),
-                    api('/categories'),
-                ])
-                setProducts(productsRes.data || productsRes)
-                setCategories(categoriesRes)
-            } catch (err) {
-                console.error(err)
-            }
-        }
-        fetchData()
+        api('/categories')
+            .then(setCategories)
+            .catch(console.error)
     }, [])
 
-    const filtered = activeCategory === 'Todos'
-        ? products
-        : products.filter((p) => p.category.name === activeCategory)
-
-    const categoryNames = ['Todos', ...categories.map((c) => c.name)]
+    useEffect(() => {
+        setIsLoading(true)
+        const endpoint = activeCategoryId
+            ? `/products?category_id=${activeCategoryId}&limit=4`
+            : '/products?limit=4'
+        api(endpoint)
+            .then((res) => setProducts(res.data || res))
+            .catch(console.error)
+            .finally(() => setIsLoading(false))
+    }, [activeCategoryId])
 
     return (
         <section ref={sectionRef} className="py-24 px-4 lg:px-8 max-w-7xl mx-auto w-full">
@@ -69,23 +65,37 @@ export default function Products() {
                 className="animate-on-scroll opacity-0 flex gap-2 mb-10 overflow-x-auto pb-2 max-w-full"
                 style={{ transitionDelay: '0.1s' }}
             >
-                {categoryNames.map((cat) => (
+                <button
+                    onClick={() => setActiveCategoryId(null)}
+                    className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${activeCategoryId === null
+                        ? 'bg-[var(--color-primary)] text-[var(--color-on-primary)]'
+                        : 'bg-[var(--color-surface-container)] text-[var(--color-foreground-muted)] hover:bg-[var(--color-surface-container-high)]'
+                        }`}
+                >
+                    Todos
+                </button>
+                {categories.map((cat) => (
                     <button
-                        key={cat}
-                        onClick={() => setActiveCategory(cat)}
-                        className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${activeCategory === cat
+                        key={cat.id}
+                        onClick={() => setActiveCategoryId(cat.id)}
+                        className={`px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ${activeCategoryId === cat.id
                             ? 'bg-[var(--color-primary)] text-[var(--color-on-primary)]'
                             : 'bg-[var(--color-surface-container)] text-[var(--color-foreground-muted)] hover:bg-[var(--color-surface-container-high)]'
                             }`}
                     >
-                        {cat}
+                        {cat.name}
                     </button>
                 ))}
             </div>
 
             {/* Product Grid */}
+            {isLoading ? (
+                <div className="flex items-center justify-center py-16">
+                    <Loader2 size={28} className="animate-spin text-[var(--color-primary)]" />
+                </div>
+            ) : (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
-                {filtered.slice(0, 4).map((product, index) => (
+                {products.map((product, index) => (
                     <Link
                         key={product.id}
                         href={`/shop/${product.slug}`}
@@ -115,6 +125,7 @@ export default function Products() {
                     </Link>
                 ))}
             </div>
+            )}
         </section>
     )
 }
