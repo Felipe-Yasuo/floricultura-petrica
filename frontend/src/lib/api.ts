@@ -17,8 +17,9 @@ export async function api(endpoint: string, options: FetchOptions = {}) {
     })
 
     if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Erro desconhecido' }))
-        throw new Error(error.error || 'Erro na requisição')
+        const body = await response.json().catch(() => null)
+        const message = body?.error || body?.message || `Erro ${response.status}: ${response.statusText}`
+        throw new Error(message)
     }
 
     if (response.status === 204) return null
