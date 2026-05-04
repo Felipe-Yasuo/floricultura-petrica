@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 export class DisableProductService {
@@ -8,7 +8,7 @@ export class DisableProductService {
         })
 
         if (!product) {
-            throw new AppError('Produto não encontrado', 404)
+            throw new NotFoundError('Produto')
         }
 
         const updated = await prismaClient.product.update({

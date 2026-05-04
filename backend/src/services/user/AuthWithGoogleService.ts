@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import { OAuth2Client } from 'google-auth-library'
-import { AppError } from '../../errors/AppError'
+import { UnauthorizedError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 import { env } from '../../config/env'
 
@@ -20,11 +20,11 @@ const googleClient = new OAuth2Client(env.GOOGLE_CLIENT_ID)
 export class AuthWithGoogleService {
     async execute({ accessToken }: AuthWithGoogleRequest) {
         const tokenInfo = await googleClient.getTokenInfo(accessToken).catch(() => {
-            throw new AppError('Token Google inválido', 401)
+            throw new UnauthorizedError('Token Google inválido')
         })
 
         if (tokenInfo.aud !== env.GOOGLE_CLIENT_ID) {
-            throw new AppError('Token Google não pertence a esta aplicação', 401)
+            throw new UnauthorizedError('Token Google não pertence a esta aplicação')
         }
 
         const response = await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
@@ -32,17 +32,17 @@ export class AuthWithGoogleService {
         })
 
         if (!response.ok) {
-            throw new AppError('Falha ao buscar perfil do Google', 401)
+            throw new UnauthorizedError('Falha ao buscar perfil do Google')
         }
 
         const payload = (await response.json()) as GoogleUserInfo
 
         if (!payload.sub || !payload.email) {
-            throw new AppError('Perfil Google incompleto', 401)
+            throw new UnauthorizedError('Perfil Google incompleto')
         }
 
         if (!payload.email_verified) {
-            throw new AppError('Email do Google não verificado', 401)
+            throw new UnauthorizedError('Email do Google não verificado')
         }
 
         const googleId = payload.sub

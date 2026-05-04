@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 export class DisableCategoryService {
@@ -8,7 +8,7 @@ export class DisableCategoryService {
         })
 
         if (!category) {
-            throw new AppError('Categoria não encontrada', 404)
+            throw new NotFoundError('Categoria')
         }
 
         const updated = await prismaClient.category.update({

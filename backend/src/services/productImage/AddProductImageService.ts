@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 interface AddProductImageRequest {
@@ -13,7 +13,7 @@ export class AddProductImageService {
         })
 
         if (!product) {
-            throw new AppError('Produto não encontrado', 404)
+            throw new NotFoundError('Produto')
         }
 
         const lastImage = await prismaClient.productImage.findFirst({

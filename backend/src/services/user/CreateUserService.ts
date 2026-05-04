@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { AppError } from '../../errors/AppError'
+import { ConflictError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 interface CreateUserRequest {
@@ -15,7 +15,7 @@ export class CreateUserService {
         })
 
         if (userExists) {
-            throw new AppError('Email já cadastrado', 409)
+            throw new ConflictError('Email já cadastrado')
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)

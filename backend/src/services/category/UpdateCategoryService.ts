@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { ConflictError, NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 import { slugify } from '../../utils/slugify'
 
@@ -15,7 +15,7 @@ export class UpdateCategoryService {
         })
 
         if (!category) {
-            throw new AppError('Categoria não encontrada', 404)
+            throw new NotFoundError('Categoria')
         }
 
         const data: { name?: string; slug?: string; image?: string } = {}
@@ -28,7 +28,7 @@ export class UpdateCategoryService {
             })
 
             if (slugExists && slugExists.id !== id) {
-                throw new AppError('Já existe uma categoria com esse nome', 409)
+                throw new ConflictError('Já existe uma categoria com esse nome')
             }
 
             data.name = name

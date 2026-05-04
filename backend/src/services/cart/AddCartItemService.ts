@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { AppError, NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 interface AddCartItemRequest {
@@ -14,7 +14,7 @@ export class AddCartItemService {
         })
 
         if (!product || product.disabled) {
-            throw new AppError('Produto não encontrado', 404)
+            throw new NotFoundError('Produto')
         }
 
         if (product.stock < quantity) {

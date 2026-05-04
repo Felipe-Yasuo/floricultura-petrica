@@ -1,14 +1,20 @@
-import "dotenv/config"
-import { PrismaClient } from "../generated/prisma/client"
-import { PrismaPg } from "@prisma/adapter-pg"
+import { env } from '../config/env'
+import { PrismaClient } from '../generated/prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
 
-const connectionString = `${process.env.DATABASE_URL!}`
-const adapter = new PrismaPg({ connectionString })
+const adapter = new PrismaPg({ connectionString: env.DATABASE_URL })
 
-const prismaClient = new PrismaClient({ adapter })
+export const prisma = new PrismaClient({
+    adapter,
+    log: env.NODE_ENV === 'development' ? ['query', 'warn', 'error'] : ['warn', 'error'],
+})
 
-prismaClient.$connect()
-    .then(() => console.log('✅ Banco conectado com sucesso'))
-    .catch((err) => console.error('❌ Erro ao conectar no banco:', err))
+export async function connectDatabase() {
+    await prisma.$connect()
+}
 
-export default prismaClient
+export async function disconnectDatabase() {
+    await prisma.$disconnect()
+}
+
+export default prisma

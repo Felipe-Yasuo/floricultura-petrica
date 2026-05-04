@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { ConflictError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 import { slugify } from '../../utils/slugify'
 
@@ -16,7 +16,7 @@ export class CreateCategoryService {
         })
 
         if (categoryExists) {
-            throw new AppError('Categoria já existe', 409)
+            throw new ConflictError('Categoria já existe')
         }
 
         const category = await prismaClient.category.create({

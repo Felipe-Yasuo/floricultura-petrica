@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/NotFoundError'
 import prismaClient from '../../lib/prisma'
 
 interface GetOrderRequest {
@@ -36,11 +36,11 @@ export class GetOrderService {
         })
 
         if (!order) {
-            throw new AppError('Pedido não encontrado', 404)
+            throw new NotFoundError('Pedido não encontrado', 404)
         }
 
         if (role !== 'ADMIN' && order.user_id !== user_id) {
-            throw new AppError('Pedido não encontrado', 404)
+            throw new NotFoundError('Pedido não encontrado', 404)
         }
 
         return order

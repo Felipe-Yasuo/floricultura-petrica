@@ -1,10 +1,14 @@
 import { Request, Response, NextFunction } from 'express'
 import { AppError } from '../errors/AppError'
 import { Prisma } from '../generated/prisma/client'
+import { env } from '../config/env'
 
 export const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction): void => {
     if (err instanceof AppError) {
-        res.status(err.statusCode).json({ error: err.message })
+        res.status(err.statusCode).json({
+            error: err.message,
+            ...(err.details ? { details: err.details } : {}),
+        })
         return
     }
 
@@ -19,6 +23,6 @@ export const errorHandler = (err: Error, _req: Request, res: Response, _next: Ne
         }
     }
 
-    console.error(process.env.NODE_ENV === 'production' ? err.message : err)
+    console.error(env.NODE_ENV === 'production' ? err.message : err)
     res.status(500).json({ error: 'Erro interno do servidor' })
 }

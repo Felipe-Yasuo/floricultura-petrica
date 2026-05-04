@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { ConflictError, NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 import { slugify } from '../../utils/slugify'
 
@@ -19,7 +19,7 @@ export class UpdateProductService {
         })
 
         if (!product) {
-            throw new AppError('Produto não encontrado', 404)
+            throw new NotFoundError('Produto')
         }
 
         const data: Record<string, unknown> = {}
@@ -32,7 +32,7 @@ export class UpdateProductService {
             })
 
             if (slugExists && slugExists.id !== id) {
-                throw new AppError('Já existe um produto com esse nome', 409)
+                throw new ConflictError('Já existe um produto com esse nome')
             }
 
             data.name = name
@@ -50,7 +50,7 @@ export class UpdateProductService {
             })
 
             if (!category) {
-                throw new AppError('Categoria não encontrada', 404)
+                throw new NotFoundError('Categoria')
             }
 
             data.category_id = category_id
