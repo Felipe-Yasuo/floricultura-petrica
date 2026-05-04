@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 export class DeleteProductImageService {
@@ -8,7 +8,7 @@ export class DeleteProductImageService {
         })
 
         if (!image) {
-            throw new AppError('Imagem não encontrada', 404)
+            throw new NotFoundError('Imagem')
         }
 
         await prismaClient.productImage.delete({

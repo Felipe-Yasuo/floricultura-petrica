@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { ConflictError, NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 import { slugify } from '../../utils/slugify'
 
@@ -18,7 +18,7 @@ export class CreateProductService {
         })
 
         if (!category) {
-            throw new AppError('Categoria não encontrada', 404)
+            throw new NotFoundError('Categoria')
         }
 
         const slug = slugify(name)
@@ -28,7 +28,7 @@ export class CreateProductService {
         })
 
         if (productExists) {
-            throw new AppError('Produto já existe', 409)
+            throw new ConflictError('Produto já existe')
         }
 
         const product = await prismaClient.product.create({

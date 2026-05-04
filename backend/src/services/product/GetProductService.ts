@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 export class GetProductService {
@@ -20,7 +20,7 @@ export class GetProductService {
         })
 
         if (!product) {
-            throw new AppError('Produto não encontrado', 404)
+            throw new NotFoundError('Produto')
         }
 
         return product

@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { AppError, NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 interface UpdateCartItemRequest {
@@ -15,7 +15,7 @@ export class UpdateCartItemService {
         })
 
         if (!item || item.cart.user_id !== user_id) {
-            throw new AppError('Item não encontrado', 404)
+            throw new NotFoundError('Item')
         }
 
         if (item.product.stock < quantity) {

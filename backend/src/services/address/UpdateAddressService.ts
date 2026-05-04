@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 interface UpdateAddressRequest {
@@ -22,7 +22,7 @@ export class UpdateAddressService {
         })
 
         if (!address || address.user_id !== user_id) {
-            throw new AppError('Endereço não encontrado', 404)
+            throw new NotFoundError('Endereço')
         }
 
         if (isDefault) {

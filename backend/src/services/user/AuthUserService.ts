@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import { AppError } from '../../errors/AppError'
+import { UnauthorizedError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
+import { env } from '../../config/env'
 
 interface AuthRequest {
     email: string
@@ -15,22 +16,22 @@ export class AuthUserService {
         })
 
         if (!user) {
-            throw new AppError('Email ou senha inválidos', 401)
+            throw new UnauthorizedError('Email ou senha inválidos')
         }
 
         if (!user.password) {
-            throw new AppError('Esta conta foi criada com Google. Entre com o botão do Google.', 401)
+            throw new UnauthorizedError('Esta conta foi criada com Google. Entre com o botão do Google.')
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password)
 
         if (!passwordMatch) {
-            throw new AppError('Email ou senha inválidos', 401)
+            throw new UnauthorizedError('Email ou senha inválidos')
         }
 
         const token = jwt.sign(
             { sub: user.id, role: user.role },
-            process.env.JWT_SECRET!,
+            env.JWT_SECRET,
             { expiresIn: '1d' }
         )
 

@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 
 interface RemoveCartItemRequest {
@@ -14,7 +14,7 @@ export class RemoveCartItemService {
         })
 
         if (!item || item.cart.user_id !== user_id) {
-            throw new AppError('Item não encontrado', 404)
+            throw new NotFoundError('Item')
         }
 
         await prismaClient.cartItem.delete({

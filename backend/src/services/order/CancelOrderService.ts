@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { AppError, NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 import { stripe } from '../../config/stripe'
 
@@ -25,7 +25,7 @@ export class CancelOrderService {
         })
 
         if (!order || order.user_id !== user_id) {
-            throw new AppError('Pedido não encontrado', 404)
+            throw new NotFoundError('Pedido')
         }
 
         if (order.status === 'AWAITING_PAYMENT') {

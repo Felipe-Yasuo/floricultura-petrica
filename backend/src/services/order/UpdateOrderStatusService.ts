@@ -1,4 +1,4 @@
-import { AppError } from '../../errors/AppError'
+import { AppError, NotFoundError } from '../../errors/AppError'
 import prismaClient from '../../lib/prisma'
 import { OrderStatus } from '../../generated/prisma/client'
 interface UpdateOrderStatusRequest {
@@ -13,7 +13,7 @@ export class UpdateOrderStatusService {
         })
 
         if (!order) {
-            throw new AppError('Pedido não encontrado', 404)
+            throw new NotFoundError('Pedido')
         }
 
         if (order.status === 'CANCELLED') {
