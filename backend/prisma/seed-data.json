@@ -1,0 +1,957 @@
+{
+  "users": [
+    {
+      "id": "2375c193-d7fa-4b48-9786-afd807787bf5",
+      "name": "Raicone",
+      "email": "raiconepro@gmail.com",
+      "phone": null,
+      "password": "$2b$10$6hx.XN5DBl4PX7yXOoMSCekFOXHaTw37b5hPmLlZsbmlvAvKtH7Wm",
+      "googleId": null,
+      "role": "CUSTOMER",
+      "createdAt": "2026-04-22T04:04:08.551Z",
+      "updatedAt": "2026-04-22T04:04:08.551Z"
+    },
+    {
+      "id": "179c9d1f-ef16-4eff-a9bb-01bb4680b120",
+      "name": "Felipe Yasuo",
+      "email": "felipeyasuo@gmail.com",
+      "phone": null,
+      "password": "$2b$10$G6rRXfS3QGmDlwRA8orTp.pWufIRwPRyg8XB4H079aJ1SL9pEIv2e",
+      "googleId": "115267573835326892212",
+      "role": "ADMIN",
+      "createdAt": "2026-04-17T15:28:03.130Z",
+      "updatedAt": "2026-04-22T15:30:17.811Z"
+    },
+    {
+      "id": "fc599db7-7965-4d12-8be1-eb085cb24c0c",
+      "name": "Felipe",
+      "email": "yasuo.pocoto@gmail.com",
+      "phone": null,
+      "password": null,
+      "googleId": "103971609561259624771",
+      "role": "CUSTOMER",
+      "createdAt": "2026-04-22T15:31:02.812Z",
+      "updatedAt": "2026-04-22T15:31:02.812Z"
+    },
+    {
+      "id": "bb5302b4-7b40-45dd-8ceb-9e86b5d1677a",
+      "name": "admin",
+      "email": "admin@example.com",
+      "phone": null,
+      "password": "$2b$10$CBY8cv25ViYzKqEoslYsmOrs65pELuPVxtaMaNJlyw6hAV9AQ80j2",
+      "googleId": null,
+      "role": "ADMIN",
+      "createdAt": "2026-05-02T00:13:38.395Z",
+      "updatedAt": "2026-05-02T00:13:38.395Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "d083d20c-eaf3-4bab-ac83-eac4ffbf56b7",
+      "name": "Plantas Ornamentais",
+      "slug": "plantas-ornamentais",
+      "image": null,
+      "disabled": false,
+      "createdAt": "2026-04-21T15:52:35.340Z",
+      "updatedAt": "2026-04-21T15:52:35.340Z"
+    },
+    {
+      "id": "cd9ce531-5d47-4a03-94d9-406389b4dd5a",
+      "name": "Cactos e Suculentas",
+      "slug": "cactos-e-suculentas",
+      "image": null,
+      "disabled": false,
+      "createdAt": "2026-04-21T15:53:00.461Z",
+      "updatedAt": "2026-04-21T15:53:00.461Z"
+    },
+    {
+      "id": "7de2efc8-1086-4c69-bb35-0d6a17a931c2",
+      "name": "Plantas Floridas",
+      "slug": "plantas-floridas",
+      "image": null,
+      "disabled": false,
+      "createdAt": "2026-04-21T15:53:51.452Z",
+      "updatedAt": "2026-04-21T15:53:51.452Z"
+    },
+    {
+      "id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "name": "Arranjos e Buquês",
+      "slug": "arranjos-e-buques",
+      "image": null,
+      "disabled": false,
+      "createdAt": "2026-04-17T16:52:24.294Z",
+      "updatedAt": "2026-04-21T20:50:51.241Z"
+    },
+    {
+      "id": "e58c0846-6231-4859-939a-ed38533dc7d2",
+      "name": "Plantas Aromáticas",
+      "slug": "plantas-aromaticas",
+      "image": null,
+      "disabled": false,
+      "createdAt": "2026-04-21T15:53:57.822Z",
+      "updatedAt": "2026-04-21T20:50:10.722Z"
+    },
+    {
+      "id": "66f56e71-e297-4354-a574-0ad3b7215bbb",
+      "name": "Bonsai",
+      "slug": "bonsai",
+      "image": null,
+      "disabled": false,
+      "createdAt": "2026-04-21T15:54:02.496Z",
+      "updatedAt": "2026-04-21T21:49:40.768Z"
+    }
+  ],
+  "addresses": [
+    {
+      "id": "64e2cf7b-a089-4d9e-8e29-2a79c048d383",
+      "label": "Casa",
+      "street": "Vicenti Bocuti",
+      "number": "1158",
+      "complement": "Casa",
+      "neighborhood": "Santa Rita",
+      "city": "Londrina",
+      "state": "PR",
+      "zipCode": "86072380",
+      "isDefault": true,
+      "user_id": "179c9d1f-ef16-4eff-a9bb-01bb4680b120",
+      "createdAt": "2026-04-17T16:53:41.422Z",
+      "updatedAt": "2026-04-17T16:53:41.422Z"
+    },
+    {
+      "id": "3bdb3800-7e40-4c36-b416-bd53cd386282",
+      "label": "Casa",
+      "street": "Av vicente",
+      "number": "1158",
+      "complement": "",
+      "neighborhood": "Maria lucia",
+      "city": "Londrina",
+      "state": "PR",
+      "zipCode": "86072380",
+      "isDefault": true,
+      "user_id": "2375c193-d7fa-4b48-9786-afd807787bf5",
+      "createdAt": "2026-04-22T04:05:39.304Z",
+      "updatedAt": "2026-04-22T04:05:39.304Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "046c085d-8136-4b89-a36c-91f8ceb0d1a7",
+      "name": "Suculenta pequena",
+      "slug": "suculenta-pequena",
+      "description": "A suculenta é uma planta delicada e charmosa, ideal para decorar pequenos espaços com elegância e simplicidade. Seu tamanho compacto a torna perfeita para mesas, escritórios e prateleiras, adicionando um toque natural ao ambiente. Fácil de cuidar, necessita de pouca água e se adapta bem a ambientes internos com boa iluminação. Seu destaque está na combinação de beleza e praticidade, sendo uma ótima opção para quem busca decoração com baixa manutenção.",
+      "price": 2990,
+      "stock": 72,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776800316/petrica/vvgytceucvwl9wjreejx.jpg",
+      "disabled": false,
+      "category_id": "cd9ce531-5d47-4a03-94d9-406389b4dd5a",
+      "createdAt": "2026-04-21T19:39:36.422Z",
+      "updatedAt": "2026-04-21T19:40:30.155Z"
+    },
+    {
+      "id": "e54c1d9b-54ec-4dad-9012-ccc3ac085429",
+      "name": "Orquídea roxa premium",
+      "slug": "orquidea-roxa-premium",
+      "description": "A orquídea roxa premium é uma flor sofisticada e elegante, perfeita para trazer requinte e beleza ao ambiente. Suas pétalas delicadas em tons vibrantes de roxo criam um visual marcante e harmonioso, ideal para decoração de interiores. Além da estética, é uma planta duradoura quando bem cuidada, adaptando-se bem a ambientes com luz indireta e regas moderadas. Seu grande diferencial está na elegância natural e na capacidade de transformar qualquer espaço em um ambiente mais refinado, sendo uma excelente opção tanto para presentear quanto para decorar.",
+      "price": 11990,
+      "stock": 18,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801130/petrica/x4kscg49ck8vvyx58kxl.jpg",
+      "disabled": false,
+      "category_id": "7de2efc8-1086-4c69-bb35-0d6a17a931c2",
+      "createdAt": "2026-04-21T19:52:19.136Z",
+      "updatedAt": "2026-04-21T19:52:27.367Z"
+    },
+    {
+      "id": "790a0010-5ff0-4a8c-8c03-0c2ab7fb3e54",
+      "name": "Orquídea branca",
+      "slug": "orquidea-branca",
+      "description": "A orquídea branca é um clássico da decoração, conhecida por sua delicadeza e sofisticação. Suas flores claras transmitem paz, leveza e elegância, sendo ideais para ambientes mais refinados e acolhedores. Além de sua beleza atemporal, adapta-se bem a espaços internos com luz indireta, exigindo cuidados simples e regas moderadas. Seu diferencial está na aparência clean e versátil, que combina com qualquer estilo de decoração, sendo perfeita para presentear em ocasiões especiais.",
+      "price": 10990,
+      "stock": 27,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801323/petrica/cas45bqchqktfhgplxza.jpg",
+      "disabled": false,
+      "category_id": "7de2efc8-1086-4c69-bb35-0d6a17a931c2",
+      "createdAt": "2026-04-21T19:55:26.954Z",
+      "updatedAt": "2026-04-21T19:55:37.898Z"
+    },
+    {
+      "id": "e04e9ec2-7ad4-43b7-821b-d44978ddc73a",
+      "name": "Buquê romântico com rosas e astromélias",
+      "slug": "buque-romantico-com-rosas-e-astromelias",
+      "description": "O buquê romântico com rosas e astromélias é uma combinação delicada e encantadora, ideal para expressar sentimentos de carinho e amor. A união das rosas com a leveza das astromélias cria um arranjo harmonioso e sofisticado, perfeito para surpreender em momentos especiais. Seu visual elegante e equilibrado transmite romantismo e cuidado em cada detalhe, sendo uma excelente escolha para presentear alguém especial e tornar qualquer ocasião ainda mais marcante.",
+      "price": 9990,
+      "stock": 6,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801853/petrica/qeymddwwuy2a1fgv6dpd.jpg",
+      "disabled": false,
+      "category_id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "createdAt": "2026-04-21T20:04:17.508Z",
+      "updatedAt": "2026-04-21T20:04:27.001Z"
+    },
+    {
+      "id": "7703ccb6-a240-401f-b3ae-524b51bcf36d",
+      "name": "Buquê mix de rosas e chocolate",
+      "slug": "buque-mix-de-rosas-e-chocolate",
+      "description": "O buquê mix de rosas e chocolate é a combinação perfeita entre beleza e sabor, ideal para surpreender e encantar. As rosas trazem elegância e romantismo, enquanto os chocolates adicionam um toque especial e irresistível ao presente. Esse arranjo é perfeito para datas comemorativas e momentos inesquecíveis, proporcionando uma experiência completa que agrada tanto visualmente quanto ao paladar. Seu diferencial está na originalidade e no impacto, sendo uma escolha criativa e sofisticada para presentear.",
+      "price": 12990,
+      "stock": 8,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802206/petrica/pmcdrizulqqrkoog68cl.jpg",
+      "disabled": false,
+      "category_id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "createdAt": "2026-04-21T20:10:08.654Z",
+      "updatedAt": "2026-04-21T20:10:17.653Z"
+    },
+    {
+      "id": "cc74cfa8-c817-4248-9236-29b16f60cc06",
+      "name": "Buquê de rosas cor-de-rosa delicadas",
+      "slug": "buque-de-rosas-cor-de-rosa-delicadas",
+      "description": "O buquê de rosas cor-de-rosa delicadas é um arranjo suave e elegante, perfeito para transmitir carinho, admiração e afeto. Suas tonalidades leves criam um visual harmonioso e encantador, ideal para presentear em diversas ocasiões. Além da beleza, é um clássico que nunca sai de moda, trazendo sofisticação e sensibilidade em cada detalhe. Seu destaque está na delicadeza e no significado, sendo uma escolha certeira para momentos especiais.",
+      "price": 8990,
+      "stock": 5,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802247/petrica/ynw19vrqtkj8guqpvd8j.jpg",
+      "disabled": false,
+      "category_id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "createdAt": "2026-04-21T20:10:54.239Z",
+      "updatedAt": "2026-04-21T20:11:03.300Z"
+    },
+    {
+      "id": "870e6bfc-7cf1-4d99-a4a4-a4131050fc6d",
+      "name": "Lírio da paz",
+      "slug": "lirio-da-paz",
+      "description": "O Lírio-da-paz é uma planta ornamental elegante e atemporal, perfeita para trazer beleza e tranquilidade a qualquer ambiente. Suas folhas verdes escuras e brilhantes contrastam com as delicadas flores brancas, criando um visual sofisticado e acolhedor.\n\nAlém da estética, é uma planta fácil de cuidar, ideal para iniciantes ou para quem tem uma rotina agitada. Adapta-se bem a ambientes internos, como salas, quartos e escritórios, e prefere luz indireta, mantendo-se saudável com regas moderadas.\n\nOutro grande destaque do Lírio-da-paz é sua capacidade de ajudar na purificação do ar, contribuindo para um ambiente mais agradável e harmonioso.\n\nCaracterísticas principais:\n\nPlanta ornamental de fácil manutenção\nIdeal para ambientes internos\nFlores brancas elegantes e duradouras\nAjuda a melhorar a qualidade do ar\nPerfeita para decoração e presentes\n\nUma escolha versátil para quem busca beleza, praticidade e bem-estar no dia a dia.",
+      "price": 7990,
+      "stock": 20,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776787521/petrica/rbtgpzrwycoojz7g5fyo.jpg",
+      "disabled": false,
+      "category_id": "d083d20c-eaf3-4bab-ac83-eac4ffbf56b7",
+      "createdAt": "2026-04-21T16:05:56.170Z",
+      "updatedAt": "2026-04-21T16:06:27.654Z"
+    },
+    {
+      "id": "2568cc05-9a17-42f9-b81a-458a081a7a1e",
+      "name": "Buquê de girassóis vibrantes",
+      "slug": "buque-de-girassois-vibrantes",
+      "description": "O buquê de girassóis é uma opção alegre e cheia de energia, perfeito para iluminar o dia de alguém especial. Suas flores grandes e vibrantes simbolizam felicidade, positividade e vitalidade, criando um impacto visual marcante e acolhedor. Ideal para presentear ou decorar ambientes, esse arranjo transmite leveza e boas energias, sendo uma escolha perfeita para ocasiões descontraídas e cheias de significado.",
+      "price": 9990,
+      "stock": 10,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802343/petrica/qxiqhmll8oc0wgredsou.jpg",
+      "disabled": false,
+      "category_id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "createdAt": "2026-04-21T20:12:29.838Z",
+      "updatedAt": "2026-04-21T20:12:45.762Z"
+    },
+    {
+      "id": "def46150-63dd-4c78-96fb-ac5553c42f89",
+      "name": "Mini jardim de suculentas",
+      "slug": "mini-jardim-de-suculentas",
+      "description": "O mini jardim de suculentas é uma composição moderna e charmosa, ideal para quem busca praticidade e estilo em pequenos espaços. A combinação de diferentes formas e tonalidades cria um visual único e encantador, perfeito para mesas, escritórios e ambientes internos. Além de bonitas, as suculentas são extremamente resistentes e fáceis de cuidar, exigindo pouca água e manutenção. Seu grande diferencial é unir estética contemporânea com praticidade, sendo uma excelente escolha para quem deseja um toque verde sem complicação.",
+      "price": 6990,
+      "stock": 25,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776790076/petrica/ywxg2ulaxwlamdep8uub.jpg",
+      "disabled": false,
+      "category_id": "cd9ce531-5d47-4a03-94d9-406389b4dd5a",
+      "createdAt": "2026-04-21T16:55:07.469Z",
+      "updatedAt": "2026-04-21T19:20:58.711Z"
+    },
+    {
+      "id": "f36fc8ba-d2a7-42c4-99e8-bd79653cfa00",
+      "name": "Antúrio vermelho",
+      "slug": "anturio-vermelho",
+      "description": "O antúrio é uma planta vibrante e elegante, conhecida por suas flores vermelhas intensas que trazem vida e sofisticação ao ambiente. Seu visual marcante transforma qualquer espaço, criando um ponto de destaque na decoração. Além da beleza, é uma planta de fácil manutenção, adaptando-se bem a ambientes internos com luz indireta e regas moderadas. Seu principal diferencial são suas flores duradouras, que mantêm o ambiente sempre bonito e acolhedor, sendo perfeita tanto para decoração quanto para presentear.",
+      "price": 7990,
+      "stock": 40,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799449/petrica/tlrdsbhrlfrrambywaoi.jpg",
+      "disabled": false,
+      "category_id": "7de2efc8-1086-4c69-bb35-0d6a17a931c2",
+      "createdAt": "2026-04-21T19:24:14.366Z",
+      "updatedAt": "2026-04-21T19:24:38.903Z"
+    },
+    {
+      "id": "437ceb83-563a-4a77-895d-0a1fcb6ded68",
+      "name": "Bonsai ornamental",
+      "slug": "bonsai-ornamental",
+      "description": "O bonsai ornamental é uma peça viva que transmite equilíbrio, serenidade e conexão com a natureza. Seu formato delicado e artístico transforma qualquer ambiente em um espaço mais harmonioso e sofisticado. Além de sua beleza única, é uma planta que estimula o cuidado e a paciência, sendo ideal para quem aprecia decoração com significado. Adapta-se bem a ambientes internos bem iluminados, exigindo atenção moderada com regas e poda. Seu grande diferencial está no valor simbólico, representando paz, longevidade e equilíbrio, sendo uma excelente escolha para quem busca elegância e significado em um único elemento.",
+      "price": 14990,
+      "stock": 15,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776787602/petrica/fek2hlw8hx0q0iorvykp.jpg",
+      "disabled": false,
+      "category_id": "66f56e71-e297-4354-a574-0ad3b7215bbb",
+      "createdAt": "2026-04-17T16:52:56.812Z",
+      "updatedAt": "2026-04-21T19:20:30.014Z"
+    },
+    {
+      "id": "2a5e05c0-8cb3-4d61-9488-e3c695275ef9",
+      "name": "Samambaia americana",
+      "slug": "samambaia-americana",
+      "description": "A samambaia americana é uma planta clássica e volumosa, ideal para criar um ambiente mais natural e aconchegante. Suas folhas longas e delicadas proporcionam leveza e movimento à decoração, especialmente quando utilizada em vasos suspensos. Adapta-se bem a ambientes internos e requer cuidados simples, com regas regulares e luz indireta. Seu grande diferencial está no visual cheio e ornamental, sendo perfeita para quem deseja trazer frescor e naturalidade ao ambiente.",
+      "price": 6990,
+      "stock": 23,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799495/petrica/vjhmuiqx2xyxgde5aej1.jpg",
+      "disabled": false,
+      "category_id": "d083d20c-eaf3-4bab-ac83-eac4ffbf56b7",
+      "createdAt": "2026-04-21T19:25:25.041Z",
+      "updatedAt": "2026-04-21T20:18:36.756Z"
+    },
+    {
+      "id": "d96a5631-c03e-4ef3-be77-e63aa863471e",
+      "name": "Costela-de-adão",
+      "slug": "costela-de-adao",
+      "description": "A costela-de-adão é uma planta tropical marcante, conhecida por suas folhas grandes e recortadas que trazem um visual moderno e sofisticado ao ambiente. Sua presença transforma a decoração, criando um destaque natural elegante e cheio de personalidade. Além da estética impactante, é uma planta resistente e de fácil adaptação, ideal para ambientes internos com luz indireta. Seu diferencial está no visual exuberante e contemporâneo, sendo perfeita para quem busca um ambiente estiloso e acolhedor.",
+      "price": 12990,
+      "stock": 12,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799287/petrica/mzcgivac3ejzzfned37e.jpg",
+      "disabled": false,
+      "category_id": "d083d20c-eaf3-4bab-ac83-eac4ffbf56b7",
+      "createdAt": "2026-04-21T19:22:17.240Z",
+      "updatedAt": "2026-04-21T19:22:26.058Z"
+    },
+    {
+      "id": "931a8444-7449-4afc-81d2-56823f61fe7e",
+      "name": "Planta zamioculca",
+      "slug": "planta-zamioculca",
+      "description": "A zamioculca é uma planta elegante e altamente resistente, ideal para quem busca praticidade sem abrir mão da beleza. Suas folhas verdes brilhantes adicionam um toque moderno e sofisticado ao ambiente, sendo perfeita para decoração interna. É extremamente fácil de cuidar, tolerando pouca luz e necessitando de baixa frequência de rega, o que a torna ideal para iniciantes ou para quem tem uma rotina agitada. Seu grande diferencial é a durabilidade e resistência, sendo uma escolha prática e versátil para qualquer espaço.",
+      "price": 8990,
+      "stock": 30,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799360/petrica/aa9qm9illeqbpagc96ss.jpg",
+      "disabled": false,
+      "category_id": "d083d20c-eaf3-4bab-ac83-eac4ffbf56b7",
+      "createdAt": "2026-04-21T19:23:25.194Z",
+      "updatedAt": "2026-04-21T19:23:35.952Z"
+    },
+    {
+      "id": "72462cb9-5ccc-44df-8c37-38ce67a08731",
+      "name": "Planta jiboia pendente",
+      "slug": "planta-jiboia-pendente",
+      "description": "A jiboia é uma planta versátil e muito popular, conhecida por seu crescimento pendente e folhas decorativas que se adaptam facilmente a diferentes estilos de ambiente. É uma excelente opção para prateleiras, estantes e suportes elevados, criando um efeito visual elegante e moderno. Além disso, é extremamente fácil de cuidar, tolerando diferentes condições de luz e exigindo pouca manutenção. Seu destaque está na resistência e praticidade, sendo ideal para quem busca uma planta bonita e funcional.",
+      "price": 4990,
+      "stock": 55,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799582/petrica/kjawrhzqt5s6wg66wubh.jpg",
+      "disabled": false,
+      "category_id": "d083d20c-eaf3-4bab-ac83-eac4ffbf56b7",
+      "createdAt": "2026-04-21T19:26:48.587Z",
+      "updatedAt": "2026-04-21T19:26:59.299Z"
+    },
+    {
+      "id": "d1c6ca7c-63d9-46f0-9a74-67161fa61895",
+      "name": "Cacto decorativo",
+      "slug": "cacto-decorativo",
+      "description": "O cacto é uma planta moderna e minimalista, perfeita para quem busca uma decoração simples e elegante. Seu formato único adiciona personalidade ao ambiente, sendo ideal para mesas, estantes e pequenos espaços. Extremamente resistente, exige pouca água e quase nenhuma manutenção, adaptando-se facilmente a diferentes condições. Seu grande diferencial é a praticidade, sendo uma excelente escolha para quem deseja um toque verde sem esforço.",
+      "price": 3990,
+      "stock": 8,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799907/petrica/hxmnlsolsx7amn80sqvl.jpg",
+      "disabled": false,
+      "category_id": "cd9ce531-5d47-4a03-94d9-406389b4dd5a",
+      "createdAt": "2026-04-21T19:37:44.392Z",
+      "updatedAt": "2026-04-21T19:37:53.478Z"
+    },
+    {
+      "id": "50c4c6eb-4b78-48c3-b36b-c6041e6824a9",
+      "name": "Planta lavanda",
+      "slug": "planta-lavanda",
+      "description": "A lavanda é conhecida por seu aroma suave e relaxante, sendo perfeita para criar um ambiente acolhedor e tranquilo. Suas flores delicadas em tons de roxo trazem leveza e charme à decoração, enquanto seu perfume natural contribui para o bem-estar e relaxamento. Além da estética, é uma planta funcional, ideal para ambientes internos bem iluminados ou externos, com necessidade de regas moderadas. Seu principal destaque é a capacidade de proporcionar conforto e reduzir o estresse, tornando-se uma ótima opção para quem deseja unir beleza e qualidade de vida no dia a dia.",
+      "price": 5990,
+      "stock": 30,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776789612/petrica/mnsakmcnhajrr2kssanh.jpg",
+      "disabled": false,
+      "category_id": "e58c0846-6231-4859-939a-ed38533dc7d2",
+      "createdAt": "2026-04-21T16:40:22.198Z",
+      "updatedAt": "2026-04-21T20:18:14.320Z"
+    },
+    {
+      "id": "0aaac3d3-38c9-42d3-b1d3-4103b90bc274",
+      "name": "Buquê de lírios brancos elegantes",
+      "slug": "buque-de-lirios-brancos-elegantes",
+      "description": "O buquê de lírios brancos é um arranjo sofisticado e atemporal, conhecido por sua elegância e fragrância suave. Suas flores delicadas transmitem pureza, paz e serenidade, sendo ideais para ocasiões especiais e ambientes refinados. Além da beleza, o lírio é uma flor marcante que se destaca pela presença e aroma, criando uma experiência sensorial completa. Seu diferencial está na combinação de sofisticação e significado, tornando-o uma excelente opção para presentear.",
+      "price": 10990,
+      "stock": 18,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802388/petrica/l5bmuwoskldqlvubgr4j.jpg",
+      "disabled": false,
+      "category_id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "createdAt": "2026-04-21T20:13:12.745Z",
+      "updatedAt": "2026-04-21T20:13:20.494Z"
+    },
+    {
+      "id": "44c21dc0-457b-4447-9605-9973d037c99f",
+      "name": "Buquê de rosas vermelhas clássicas",
+      "slug": "buque-de-rosas-vermelhas-classicas",
+      "description": "O buquê de rosas vermelhas é o símbolo clássico do amor e da paixão, sendo uma escolha perfeita para momentos românticos e datas especiais. Suas flores intensas e elegantes criam um visual marcante e sofisticado, capaz de emocionar e surpreender. Além de sua beleza icônica, é um presente atemporal que nunca perde o significado, representando sentimentos profundos de forma única. Seu diferencial está na força simbólica e no impacto visual, tornando-o ideal para ocasiões inesquecíveis.",
+      "price": 11990,
+      "stock": 20,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802467/petrica/cr5vblcndh0t858bvsgf.jpg",
+      "disabled": false,
+      "category_id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "createdAt": "2026-04-21T20:14:32.718Z",
+      "updatedAt": "2026-04-27T16:53:06.034Z"
+    },
+    {
+      "id": "6afc41bc-802e-42c1-89f6-bea6a293da10",
+      "name": "Buquê de flores do campo coloridas",
+      "slug": "buque-de-flores-do-campo-coloridas",
+      "description": "O buquê de flores do campo é um arranjo leve, natural e cheio de vida, composto por flores variadas e coloridas que trazem alegria ao ambiente. Seu estilo descontraído e espontâneo transmite simplicidade e beleza natural, sendo ideal para quem busca um presente delicado e autêntico. Perfeito para diversas ocasiões, esse buquê encanta pela diversidade e pelo visual vibrante, criando uma atmosfera acolhedora e alegre.",
+      "price": 7990,
+      "stock": 16,
+      "banner": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802422/petrica/nf3ypddoztzw9ojxwxzj.jpg",
+      "disabled": false,
+      "category_id": "ed80276b-0e11-43f4-a0f7-395ba43b8781",
+      "createdAt": "2026-04-21T20:13:46.904Z",
+      "updatedAt": "2026-04-22T04:06:23.574Z"
+    }
+  ],
+  "productImages": [
+    {
+      "id": "8b8e6a7a-0cc1-44b2-9822-7227d30dc98a",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776787561/petrica/s95r55km8q9bzd4uthq3.jpg",
+      "position": 0,
+      "product_id": "870e6bfc-7cf1-4d99-a4a4-a4131050fc6d",
+      "createdAt": "2026-04-21T16:06:02.737Z"
+    },
+    {
+      "id": "f626946e-f5d7-4e0c-b2bc-5e85706218dd",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776789627/petrica/iptcidpqkker0whv2yho.jpg",
+      "position": 0,
+      "product_id": "50c4c6eb-4b78-48c3-b36b-c6041e6824a9",
+      "createdAt": "2026-04-21T16:40:29.468Z"
+    },
+    {
+      "id": "93251023-d360-4e0e-b3b3-9663cdbcb241",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776789628/petrica/wpykjykajhjxfyjodjsq.jpg",
+      "position": 1,
+      "product_id": "50c4c6eb-4b78-48c3-b36b-c6041e6824a9",
+      "createdAt": "2026-04-21T16:40:30.413Z"
+    },
+    {
+      "id": "99431e96-e75f-4f1c-bcbf-6fe48e237878",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776789680/petrica/mgzb2m2akzvgc4ejm17w.jpg",
+      "position": 0,
+      "product_id": "437ceb83-563a-4a77-895d-0a1fcb6ded68",
+      "createdAt": "2026-04-21T16:41:22.291Z"
+    },
+    {
+      "id": "e20b8c38-6615-439b-bc26-f21995951809",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776789681/petrica/zytox3vrj4tx4mcoptbt.jpg",
+      "position": 1,
+      "product_id": "437ceb83-563a-4a77-895d-0a1fcb6ded68",
+      "createdAt": "2026-04-21T16:41:23.402Z"
+    },
+    {
+      "id": "f573ceaa-6828-4f35-ab6a-6c8f4dff9560",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776790514/petrica/erxwaefj5mbwavyu2oq4.jpg",
+      "position": 0,
+      "product_id": "def46150-63dd-4c78-96fb-ac5553c42f89",
+      "createdAt": "2026-04-21T16:55:15.567Z"
+    },
+    {
+      "id": "6543a1ca-9533-463a-8be1-c055e7f0a2f1",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776790514/petrica/wqwnjdrrlpskmniaflwy.jpg",
+      "position": 1,
+      "product_id": "def46150-63dd-4c78-96fb-ac5553c42f89",
+      "createdAt": "2026-04-21T16:55:16.555Z"
+    },
+    {
+      "id": "2baf3950-e367-4d5f-b881-6f6724cef9b3",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799342/petrica/n6avmicwkzb6jqygirhg.jpg",
+      "position": 0,
+      "product_id": "d96a5631-c03e-4ef3-be77-e63aa863471e",
+      "createdAt": "2026-04-21T19:22:23.627Z"
+    },
+    {
+      "id": "f876d3fb-5309-4fc6-ac9a-18c4627146be",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799343/petrica/szcsosbqmwvwgciqxh2c.jpg",
+      "position": 1,
+      "product_id": "d96a5631-c03e-4ef3-be77-e63aa863471e",
+      "createdAt": "2026-04-21T19:22:24.504Z"
+    },
+    {
+      "id": "9155f682-18fa-4f77-baf4-3242e2055e5e",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799411/petrica/xbe0lwlgseuvqihy2sq3.jpg",
+      "position": 0,
+      "product_id": "931a8444-7449-4afc-81d2-56823f61fe7e",
+      "createdAt": "2026-04-21T19:23:33.304Z"
+    },
+    {
+      "id": "0e51f3db-6c0c-4840-a655-c4e0363d4625",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799412/petrica/b0esk3mhr9zcbwv8225w.jpg",
+      "position": 1,
+      "product_id": "931a8444-7449-4afc-81d2-56823f61fe7e",
+      "createdAt": "2026-04-21T19:23:34.266Z"
+    },
+    {
+      "id": "02e85e86-7547-4860-84bb-d41c5ac78611",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799474/petrica/yciyfr2wtx2hzgfnfpqy.jpg",
+      "position": 0,
+      "product_id": "f36fc8ba-d2a7-42c4-99e8-bd79653cfa00",
+      "createdAt": "2026-04-21T19:24:36.425Z"
+    },
+    {
+      "id": "45f95e36-c637-40ad-9567-92bc9f1627f5",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799475/petrica/ivit9oxxthtf4vkuqcpj.jpg",
+      "position": 1,
+      "product_id": "f36fc8ba-d2a7-42c4-99e8-bd79653cfa00",
+      "createdAt": "2026-04-21T19:24:37.274Z"
+    },
+    {
+      "id": "b860515f-fe02-4d1f-80a5-ac267ec4ac54",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799535/petrica/yg4vusvjykip8puhdozg.jpg",
+      "position": 0,
+      "product_id": "2a5e05c0-8cb3-4d61-9488-e3c695275ef9",
+      "createdAt": "2026-04-21T19:25:36.893Z"
+    },
+    {
+      "id": "ffd403c6-b6a9-45a4-afaa-0346d7cb7c64",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799536/petrica/nolvvhsjd5zdjxf6ebme.jpg",
+      "position": 1,
+      "product_id": "2a5e05c0-8cb3-4d61-9488-e3c695275ef9",
+      "createdAt": "2026-04-21T19:25:37.819Z"
+    },
+    {
+      "id": "e38263b3-608e-4f74-9c27-3dd85911069c",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799615/petrica/bulelwoj87blem52vqan.jpg",
+      "position": 0,
+      "product_id": "72462cb9-5ccc-44df-8c37-38ce67a08731",
+      "createdAt": "2026-04-21T19:26:56.895Z"
+    },
+    {
+      "id": "ededf6b8-1b77-485e-b474-70a5a5ad23ef",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776799616/petrica/rzmvx2yai5j4teu4d5tf.jpg",
+      "position": 1,
+      "product_id": "72462cb9-5ccc-44df-8c37-38ce67a08731",
+      "createdAt": "2026-04-21T19:26:57.802Z"
+    },
+    {
+      "id": "3864afec-8d76-41fe-934d-d176fa1b940a",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776800269/petrica/bbumuvqd3ij6xa6fe3s5.jpg",
+      "position": 0,
+      "product_id": "d1c6ca7c-63d9-46f0-9a74-67161fa61895",
+      "createdAt": "2026-04-21T19:37:51.025Z"
+    },
+    {
+      "id": "2c6506f7-adea-4ce5-a8b8-0215c86f969e",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776800270/petrica/o7cfpiro1mjtrxs6uo5b.jpg",
+      "position": 1,
+      "product_id": "d1c6ca7c-63d9-46f0-9a74-67161fa61895",
+      "createdAt": "2026-04-21T19:37:51.908Z"
+    },
+    {
+      "id": "70bd2a82-24eb-4bf3-ac89-c40236c9a621",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776800425/petrica/rjq5wngafleeuv5rs3rg.jpg",
+      "position": 0,
+      "product_id": "046c085d-8136-4b89-a36c-91f8ceb0d1a7",
+      "createdAt": "2026-04-21T19:40:27.355Z"
+    },
+    {
+      "id": "0312dc23-f42c-47d4-b278-14e0fcb5e524",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776800426/petrica/jnwuovqkjku5dgjjebad.jpg",
+      "position": 1,
+      "product_id": "046c085d-8136-4b89-a36c-91f8ceb0d1a7",
+      "createdAt": "2026-04-21T19:40:28.250Z"
+    },
+    {
+      "id": "001b575e-e86f-4b6d-9eef-a61c0a97b997",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801143/petrica/z2nhpowimgi9nyv9leks.jpg",
+      "position": 0,
+      "product_id": "e54c1d9b-54ec-4dad-9012-ccc3ac085429",
+      "createdAt": "2026-04-21T19:52:25.119Z"
+    },
+    {
+      "id": "9901ca42-b40c-403b-bb56-37a772b0a441",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801144/petrica/kd2xrpdojavicnka6dld.jpg",
+      "position": 1,
+      "product_id": "e54c1d9b-54ec-4dad-9012-ccc3ac085429",
+      "createdAt": "2026-04-21T19:52:25.931Z"
+    },
+    {
+      "id": "84467ebe-9541-49e9-ab51-d686ea8e6b4e",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801333/petrica/ymjginwicvumtozvrrqk.jpg",
+      "position": 0,
+      "product_id": "790a0010-5ff0-4a8c-8c03-0c2ab7fb3e54",
+      "createdAt": "2026-04-21T19:55:35.360Z"
+    },
+    {
+      "id": "920b8171-63fa-46dd-8d13-66d5e24bc450",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801334/petrica/s406efzb7hifclpr9wls.jpg",
+      "position": 1,
+      "product_id": "790a0010-5ff0-4a8c-8c03-0c2ab7fb3e54",
+      "createdAt": "2026-04-21T19:55:36.220Z"
+    },
+    {
+      "id": "ed9d3439-6247-4f2c-9276-d81890fc1c62",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801862/petrica/gqwvpte1jjzhhzjg9qdc.jpg",
+      "position": 0,
+      "product_id": "e04e9ec2-7ad4-43b7-821b-d44978ddc73a",
+      "createdAt": "2026-04-21T20:04:24.093Z"
+    },
+    {
+      "id": "0b6caf07-63f4-4b15-a137-99603dad99e6",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776801863/petrica/jbujsknpq7z9og67lx4m.jpg",
+      "position": 1,
+      "product_id": "e04e9ec2-7ad4-43b7-821b-d44978ddc73a",
+      "createdAt": "2026-04-21T20:04:25.276Z"
+    },
+    {
+      "id": "db83837c-93da-4407-b152-64b748ae1d8a",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802214/petrica/gkkavyzjq1pebgnb6jlm.jpg",
+      "position": 0,
+      "product_id": "7703ccb6-a240-401f-b3ae-524b51bcf36d",
+      "createdAt": "2026-04-21T20:10:15.887Z"
+    },
+    {
+      "id": "326f6c92-6d39-4d99-8124-21d3ab6bafb3",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802215/petrica/jlxaljy7mujt7tktlpzr.jpg",
+      "position": 1,
+      "product_id": "7703ccb6-a240-401f-b3ae-524b51bcf36d",
+      "createdAt": "2026-04-21T20:10:16.761Z"
+    },
+    {
+      "id": "1ef2df49-07f6-4d18-afaa-cee312114558",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802259/petrica/lqtqytty6hoegbvt4vcy.jpg",
+      "position": 0,
+      "product_id": "cc74cfa8-c817-4248-9236-29b16f60cc06",
+      "createdAt": "2026-04-21T20:11:00.842Z"
+    },
+    {
+      "id": "a976b6fa-4023-405e-b3bf-2c8e8b88f9cb",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802260/petrica/aqhrhdyhspt6ut5djj0s.jpg",
+      "position": 1,
+      "product_id": "cc74cfa8-c817-4248-9236-29b16f60cc06",
+      "createdAt": "2026-04-21T20:11:01.824Z"
+    },
+    {
+      "id": "b7137bd9-840a-43ae-9dc0-b7e25f3d8cc4",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802361/petrica/wabx5periylcjtkzzljr.jpg",
+      "position": 0,
+      "product_id": "2568cc05-9a17-42f9-b81a-458a081a7a1e",
+      "createdAt": "2026-04-21T20:12:43.211Z"
+    },
+    {
+      "id": "390d9c1b-699c-4fee-8445-42cb08001d3a",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802362/petrica/aygvfx0bzuh7seca1kde.jpg",
+      "position": 1,
+      "product_id": "2568cc05-9a17-42f9-b81a-458a081a7a1e",
+      "createdAt": "2026-04-21T20:12:44.313Z"
+    },
+    {
+      "id": "a5c4e552-76be-4d50-ac03-56194c0fcfad",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802396/petrica/jk8s2uz38nq3y3sqygbe.jpg",
+      "position": 0,
+      "product_id": "0aaac3d3-38c9-42d3-b1d3-4103b90bc274",
+      "createdAt": "2026-04-21T20:13:18.170Z"
+    },
+    {
+      "id": "26a85dc2-56d2-46e3-a029-5024bc8ffd75",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802397/petrica/wwg56cshuuwpayemxvcm.jpg",
+      "position": 1,
+      "product_id": "0aaac3d3-38c9-42d3-b1d3-4103b90bc274",
+      "createdAt": "2026-04-21T20:13:19.131Z"
+    },
+    {
+      "id": "54c0c0c5-844a-489b-b6d3-b114548b458e",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802431/petrica/ceifzhqrlmbwlvhi9ryy.jpg",
+      "position": 0,
+      "product_id": "6afc41bc-802e-42c1-89f6-bea6a293da10",
+      "createdAt": "2026-04-21T20:13:52.882Z"
+    },
+    {
+      "id": "504df93c-0edc-489c-ac53-9a13f2c654dc",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802432/petrica/rb8aitzucsihrl4xcxef.jpg",
+      "position": 1,
+      "product_id": "6afc41bc-802e-42c1-89f6-bea6a293da10",
+      "createdAt": "2026-04-21T20:13:53.889Z"
+    },
+    {
+      "id": "eaa87055-7275-4983-8709-9670e4a0ab14",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802477/petrica/b5wt6i6ap3wco2mhpukg.jpg",
+      "position": 0,
+      "product_id": "44c21dc0-457b-4447-9605-9973d037c99f",
+      "createdAt": "2026-04-21T20:14:38.602Z"
+    },
+    {
+      "id": "43da0043-2f05-4089-86a4-0e3d8cbf7257",
+      "url": "https://res.cloudinary.com/dvjtnooa3/image/upload/v1776802478/petrica/btlwzozzppkkhol4nqnp.jpg",
+      "position": 1,
+      "product_id": "44c21dc0-457b-4447-9605-9973d037c99f",
+      "createdAt": "2026-04-21T20:14:39.437Z"
+    }
+  ],
+  "carts": [
+    {
+      "id": "466d56b6-55e1-43ba-9e71-06741ecf6801",
+      "user_id": "179c9d1f-ef16-4eff-a9bb-01bb4680b120",
+      "createdAt": "2026-04-17T16:53:19.058Z",
+      "updatedAt": "2026-04-17T16:53:19.058Z"
+    },
+    {
+      "id": "5171bcb4-647b-4189-8b69-4ea4fa413a9c",
+      "user_id": "2375c193-d7fa-4b48-9786-afd807787bf5",
+      "createdAt": "2026-04-22T04:04:38.184Z",
+      "updatedAt": "2026-04-22T04:04:38.184Z"
+    },
+    {
+      "id": "1b8c5960-4235-454e-b211-dc43fd64f266",
+      "user_id": "bb5302b4-7b40-45dd-8ceb-9e86b5d1677a",
+      "createdAt": "2026-05-02T00:39:37.481Z",
+      "updatedAt": "2026-05-02T00:39:37.481Z"
+    }
+  ],
+  "cartItems": [],
+  "orders": [
+    {
+      "id": "9b24129c-c0e9-4436-ba7b-8b38aad1d7fe",
+      "status": "PENDING",
+      "total": 11990,
+      "deliveryDate": "2026-04-28T00:00:00.000Z",
+      "notes": "Cartao pipipipopo",
+      "expiresAt": null,
+      "user_id": "179c9d1f-ef16-4eff-a9bb-01bb4680b120",
+      "address_id": "64e2cf7b-a089-4d9e-8e29-2a79c048d383",
+      "createdAt": "2026-04-27T14:25:47.964Z",
+      "updatedAt": "2026-04-27T14:27:38.981Z"
+    },
+    {
+      "id": "1f9022c1-ba2b-41e0-a46d-2f12c99f155e",
+      "status": "DELIVERED",
+      "total": 11990,
+      "deliveryDate": "2028-08-26T00:00:00.000Z",
+      "notes": null,
+      "expiresAt": null,
+      "user_id": "179c9d1f-ef16-4eff-a9bb-01bb4680b120",
+      "address_id": "64e2cf7b-a089-4d9e-8e29-2a79c048d383",
+      "createdAt": "2026-04-23T14:27:04.046Z",
+      "updatedAt": "2026-04-27T14:28:15.521Z"
+    },
+    {
+      "id": "8af9be41-2b38-4e2c-a6ad-85e9b7e6d17a",
+      "status": "PENDING",
+      "total": 11990,
+      "deliveryDate": "2027-06-19T00:00:00.000Z",
+      "notes": "Colcoa uma Carta",
+      "expiresAt": null,
+      "user_id": "179c9d1f-ef16-4eff-a9bb-01bb4680b120",
+      "address_id": "64e2cf7b-a089-4d9e-8e29-2a79c048d383",
+      "createdAt": "2026-04-27T16:53:04.886Z",
+      "updatedAt": "2026-04-27T16:53:53.167Z"
+    }
+  ],
+  "orderItems": [
+    {
+      "id": "cb785262-4998-42c2-9a1e-325afd8f458d",
+      "quantity": 1,
+      "price": 11990,
+      "order_id": "1f9022c1-ba2b-41e0-a46d-2f12c99f155e",
+      "product_id": "44c21dc0-457b-4447-9605-9973d037c99f",
+      "createdAt": "2026-04-23T14:27:04.046Z"
+    },
+    {
+      "id": "5822ddae-83d5-4254-b963-b9ea5eab7cd4",
+      "quantity": 1,
+      "price": 11990,
+      "order_id": "9b24129c-c0e9-4436-ba7b-8b38aad1d7fe",
+      "product_id": "44c21dc0-457b-4447-9605-9973d037c99f",
+      "createdAt": "2026-04-27T14:25:47.964Z"
+    },
+    {
+      "id": "83df429d-0afe-4386-90c5-947d690798cd",
+      "quantity": 1,
+      "price": 11990,
+      "order_id": "8af9be41-2b38-4e2c-a6ad-85e9b7e6d17a",
+      "product_id": "44c21dc0-457b-4447-9605-9973d037c99f",
+      "createdAt": "2026-04-27T16:53:04.886Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "28b5f13b-f4cc-43bc-96ad-f6df5b5c9aaa",
+      "status": "SUCCEEDED",
+      "amount": 11990,
+      "currency": "brl",
+      "stripePaymentIntentId": "pi_3TPODdFqDUbfXKQz1jjrkyuS",
+      "stripeClientSecret": "pi_3TPODdFqDUbfXKQz1jjrkyuS_secret_PGewNQkAhOu8sYrnoPzBMHx5F",
+      "paidAt": "2026-04-23T14:27:28.182Z",
+      "failureReason": null,
+      "order_id": "1f9022c1-ba2b-41e0-a46d-2f12c99f155e",
+      "createdAt": "2026-04-23T14:27:05.808Z",
+      "updatedAt": "2026-04-23T14:27:28.183Z"
+    },
+    {
+      "id": "0ee47290-7487-4e46-9e31-ce846671d476",
+      "status": "SUCCEEDED",
+      "amount": 11990,
+      "currency": "brl",
+      "stripePaymentIntentId": "pi_3TQq6bFqDUbfXKQz060TM1Ct",
+      "stripeClientSecret": "pi_3TQq6bFqDUbfXKQz060TM1Ct_secret_2quPEWvemtF84EVXWCMyN53jn",
+      "paidAt": "2026-04-27T14:27:38.801Z",
+      "failureReason": null,
+      "order_id": "9b24129c-c0e9-4436-ba7b-8b38aad1d7fe",
+      "createdAt": "2026-04-27T14:25:49.657Z",
+      "updatedAt": "2026-04-27T14:27:38.802Z"
+    },
+    {
+      "id": "c3b31445-9f94-430c-afa5-8a7be8f21ca7",
+      "status": "SUCCEEDED",
+      "amount": 11990,
+      "currency": "brl",
+      "stripePaymentIntentId": "pi_3TQsP8FqDUbfXKQz1MnRT0B5",
+      "stripeClientSecret": "pi_3TQsP8FqDUbfXKQz1MnRT0B5_secret_hxK9A56mhp5GFVvPsez1ckpU3",
+      "paidAt": "2026-04-27T16:53:52.976Z",
+      "failureReason": null,
+      "order_id": "8af9be41-2b38-4e2c-a6ad-85e9b7e6d17a",
+      "createdAt": "2026-04-27T16:53:06.640Z",
+      "updatedAt": "2026-04-27T16:53:52.977Z"
+    }
+  ],
+  "processedStripeEvents": [
+    {
+      "id": "78743e9d-873c-47d8-b69b-3381de9d36e9",
+      "eventId": "evt_3TO2aKFqDUbfXKQz1qzOdMs8",
+      "type": "payment_intent.created",
+      "processedAt": "2026-04-19T21:08:56.852Z"
+    },
+    {
+      "id": "fe5f92cc-72ad-46a1-92dd-da7bd138a5c5",
+      "eventId": "evt_3TO2aKFqDUbfXKQz1B6RkjlF",
+      "type": "charge.succeeded",
+      "processedAt": "2026-04-19T21:17:39.332Z"
+    },
+    {
+      "id": "d729a134-7f9f-4af0-92f3-fd4815a02589",
+      "eventId": "evt_3TO2aKFqDUbfXKQz1lHRhdMl",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-19T21:17:39.679Z"
+    },
+    {
+      "id": "07f17032-2b57-4ccc-8fa6-380e0a7c5f5a",
+      "eventId": "evt_3TO2aKFqDUbfXKQz1yhM9n0e",
+      "type": "charge.updated",
+      "processedAt": "2026-04-19T21:17:49.221Z"
+    },
+    {
+      "id": "0a1499f2-d59d-40b1-9970-2c15eb8f6326",
+      "eventId": "evt_3TOrwBFqDUbfXKQz1sV8jOja",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-22T03:59:12.357Z"
+    },
+    {
+      "id": "76c44588-d480-443f-ab5f-d6eb2d3094d3",
+      "eventId": "evt_3TOs3QFqDUbfXKQz1fxXetQO",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-22T04:06:52.684Z"
+    },
+    {
+      "id": "2a5d7bb6-123c-4fb9-ad2c-797a69b1f0d4",
+      "eventId": "evt_3TPODdFqDUbfXKQz1Kd3MNW5",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-23T14:27:28.909Z"
+    },
+    {
+      "id": "20921d03-d07b-4f83-bbf6-ca3024dab7c7",
+      "eventId": "evt_3TPs8UFqDUbfXKQz1014PhJ8",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-24T22:23:55.471Z"
+    },
+    {
+      "id": "1472705e-fd33-42d8-b400-360054adfe51",
+      "eventId": "evt_3TPs8yFqDUbfXKQz0KpcDvxI",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-24T22:24:20.618Z"
+    },
+    {
+      "id": "da6cb48a-8a7e-4ef9-8f96-55c985ea2a75",
+      "eventId": "evt_3TPsX2FqDUbfXKQz1TJMpGFV",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-24T22:49:13.669Z"
+    },
+    {
+      "id": "67deb23d-125b-4bfb-ad13-87c46e90d0e4",
+      "eventId": "evt_3TPsrKFqDUbfXKQz1nfAoGb6",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-24T23:10:11.846Z"
+    },
+    {
+      "id": "98aef947-1772-42a5-b0ad-12d544676873",
+      "eventId": "evt_3TPsymFqDUbfXKQz1z9vNy1d",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-24T23:17:54.135Z"
+    },
+    {
+      "id": "4e2c32ab-45b3-41c7-a024-2880af5e2bd8",
+      "eventId": "evt_3TPt4vFqDUbfXKQz0Gbp6QJA",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-24T23:24:14.797Z"
+    },
+    {
+      "id": "4bd05b8e-dfc5-4049-b3a1-5f1a5c0616ca",
+      "eventId": "evt_3TPtR3FqDUbfXKQz1wot9HfL",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-24T23:47:06.302Z"
+    },
+    {
+      "id": "8483d2c6-b2ee-4f75-ab15-464392ffc995",
+      "eventId": "evt_3TPw6iFqDUbfXKQz0j0HAbwC",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-25T02:38:18.611Z"
+    },
+    {
+      "id": "47e4c22b-4824-43eb-a746-a39f9943c980",
+      "eventId": "evt_3TQdpaFqDUbfXKQz0sFMCiNz",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T01:19:33.330Z"
+    },
+    {
+      "id": "0bbd288d-a5ac-489f-96e2-a9ff83441a3d",
+      "eventId": "evt_3TQdvbFqDUbfXKQz0vSNZqKs",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T01:25:44.911Z"
+    },
+    {
+      "id": "1677c96a-dc37-4f27-9f57-25c3db4dbc68",
+      "eventId": "evt_3TQe6lFqDUbfXKQz1NX8iyFL",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T01:37:17.688Z"
+    },
+    {
+      "id": "ea964488-4069-49cc-ae7e-51c11434c8dd",
+      "eventId": "evt_3TQeZkFqDUbfXKQz1kylcjZQ",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T02:07:14.603Z"
+    },
+    {
+      "id": "7d8aa407-72b0-4fe5-b760-9482746401a2",
+      "eventId": "evt_3TQnRgFqDUbfXKQz1fWnXc7q",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T11:35:31.023Z"
+    },
+    {
+      "id": "1f8c5e00-1d68-4b52-ba16-830a23d10e18",
+      "eventId": "evt_3TQodcFqDUbfXKQz0XfwJvcl",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T12:51:54.708Z"
+    },
+    {
+      "id": "a59e01e0-b254-41b3-b1e2-ada6a8f9ca7d",
+      "eventId": "evt_3TQogkFqDUbfXKQz1hGqF3Du",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T12:55:08.893Z"
+    },
+    {
+      "id": "06205339-898e-4e04-8da7-f401a4be2ece",
+      "eventId": "evt_3TQolDFqDUbfXKQz1ueMmgNY",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T12:59:44.508Z"
+    },
+    {
+      "id": "ba84acf5-7f1d-4f01-8eff-7d9a7fd24292",
+      "eventId": "evt_3TQq6bFqDUbfXKQz0XyM5fO8",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T14:27:39.525Z"
+    },
+    {
+      "id": "06297a85-f3cb-487a-97ef-110d3bf963d7",
+      "eventId": "evt_3TQsP8FqDUbfXKQz1PdhoTzl",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-04-27T16:53:53.743Z"
+    },
+    {
+      "id": "ac94b95f-1aa8-4c9b-99e4-cc15ee15d6e7",
+      "eventId": "evt_3TTrvjFqDUbfXKQz1n25vLwh",
+      "type": "payment_intent.succeeded",
+      "processedAt": "2026-05-05T22:59:13.494Z"
+    }
+  ]
+}
